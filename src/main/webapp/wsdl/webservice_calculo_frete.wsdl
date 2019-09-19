@@ -1,0 +1,101 @@
+<wsdl:definitions
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	targetNamespace="http://edi.totalexpress.com.br/soap/webservice_calculo_frete.total"
+	xmlns:tns="http://edi.totalexpress.com.br/soap/webservice_calculo_frete.total">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://edi.totalexpress.com.br/soap/webservice_calculo_frete.total">
+			<xsd:import
+				namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+			<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+			<xsd:complexType name="calcularFrete">
+				<xsd:all>
+					<xsd:element name="calcularFreteRequest"
+						type="tns:calcularFreteRequest" minOccurs="1" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="calcularFreteRequest">
+				<xsd:all>
+					<xsd:element name="TipoServico" type="xsd:string"
+						minOccurs="1" maxOccurs="1" />
+					<xsd:element name="CepDestino"
+						type="xsd:nonNegativeInteger" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="Peso" type="xsd:string"
+						minOccurs="1" maxOccurs="1" />
+					<xsd:element name="ValorDeclarado" type="xsd:string"
+						minOccurs="1" maxOccurs="1" />
+					<xsd:element name="TipoEntrega"
+						type="xsd:nonNegativeInteger" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="ServicoCOD" type="xsd:boolean"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element name="Altura"
+						type="xsd:nonNegativeInteger" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="Largura"
+						type="xsd:nonNegativeInteger" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="Profundidade"
+						type="xsd:nonNegativeInteger" minOccurs="0" maxOccurs="1" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="calcularFreteResponse">
+				<xsd:all>
+					<xsd:element name="CodigoProc"
+						type="xsd:nonNegativeInteger" minOccurs="1" />
+					<xsd:element name="DadosFrete" type="tns:DadosFrete"
+						minOccurs="0" />
+					<xsd:element name="ErroConsultaFrete" type="xsd:string"
+						minOccurs="0" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="DadosFrete">
+				<xsd:all>
+					<xsd:element name="Prazo" type="xsd:string"
+						minOccurs="1" />
+					<xsd:element name="ValorServico" type="xsd:string"
+						minOccurs="1" />
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:element name="calcularFrete"
+				type="tns:calcularFrete" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="calcularFreteRequest">
+		<wsdl:part name="calcularFreteRequest" type="tns:calcularFreteRequest" />
+	</wsdl:message>
+	<wsdl:message name="calcularFreteResponse">
+		<wsdl:part name="calcularFreteResponse"
+			type="tns:calcularFreteResponse" />
+	</wsdl:message>
+	<wsdl:portType name="webservice_calculo_frete.totalPortType">
+		<wsdl:operation name="calcularFrete">
+			<wsdl:documentation>Webservice de Cálculo de Frete</wsdl:documentation>
+			<wsdl:input message="tns:calcularFreteRequest" /> 
+			<wsdl:output message="tns:calcularFreteResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="webservice_calculo_frete.totalBinding"
+		type="tns:webservice_calculo_frete.totalPortType">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="calcularFrete">
+			<soap:operation
+				soapAction="urn:simulaFrete#calcularFrete" style="rpc" />
+			<wsdl:input>
+				<soap:body use="encoded" namespace="urn:calcularFrete"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="encoded" namespace="urn:calcularFrete"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="webservice_calculo_frete.total">
+		<wsdl:port name="webservice_calculo_frete.totalPort"
+			binding="tns:webservice_calculo_frete.totalBinding">
+			<soap:address
+				location="https://edi.totalexpress.com.br:443/webservice_calculo_frete.php" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
