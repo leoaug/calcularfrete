@@ -33,12 +33,17 @@
        			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
 		
 					<p:outputLabel for="tipoServico" value="Tipo de Serviço:" />
-			        <p:selectOneMenu id="tipoServico" value="#{calcularFreteController.calcularFreteRequest.tipoServico}" style="width:125px">
+			        <p:selectOneMenu id="tipoServico" value="#{calcularFreteController.calcularFreteBean.tipoServico}" style="width:125px">
+			         	<f:selectItem itemLabel="Selecione" />
 			            <f:selectItem itemLabel="Expresso" itemValue="EXP" />
 			            <f:selectItem itemLabel="Especial" itemValue="ESP" />
 			            <f:selectItem itemLabel="Premium" itemValue="PRM" />
 			            <f:selectItem itemLabel="Standard" itemValue="STD" />
 			        </p:selectOneMenu>
+			        
+			        <p:outputLabel for="cepDestino" value="Cep Destino " />
+        			<p:inputText id="cepDestino" value="#{calcularFreteController.calcularFreteBean.cepDestino}" />
+			        
 				</p:panelGrid>
 			</div>
 			

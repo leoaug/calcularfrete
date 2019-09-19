@@ -8,7 +8,10 @@
 package br.com.onsys.webservice;
 
 public class DadosFrete  implements java.io.Serializable {
-    private java.lang.String prazo;
+  
+	private static final long serialVersionUID = 1L;
+
+	private java.lang.String prazo;
 
     private java.lang.String valorServico;
 
