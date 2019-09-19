@@ -14,7 +14,7 @@ import br.com.onsys.service.util.WebServiceUtil;
 import br.com.onsys.webservice.CalcularFreteRequest;
 import br.com.onsys.webservice.CalcularFreteResponse;
 
-@Service
+//@Service
 public class CalcularFreteService implements Serializable {
 	
 	
