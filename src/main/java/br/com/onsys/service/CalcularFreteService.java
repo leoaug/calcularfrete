@@ -1,6 +1,7 @@
 package br.com.onsys.service;
 
 import java.io.ByteArrayInputStream;
+import java.io.Serializable;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -14,8 +15,11 @@ import br.com.onsys.webservice.CalcularFreteRequest;
 import br.com.onsys.webservice.CalcularFreteResponse;
 
 @Service
-public class CalcularFreteService {
+public class CalcularFreteService implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	public CalcularFreteResponse calcularFreteRequest(CalcularFreteRequest calcularFreteRequestTela) throws Exception {
 		try {
 				String request = "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:calcularFrete\">" +
@@ -24,7 +28,7 @@ public class CalcularFreteService {
 									 "<urn:calcularFrete soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"> " +
 									     "<calcularFreteRequest xsi:type=\"web:calcularFreteRequest\" xmlns:web=\"http://edi.totalexpress.com.br/soap/webservice_calculo_frete.total\"> " +
 									            //<!--You may enter the following 9 items in any order-->
-										        "<TipoServico xsi:type=\"xsd:string\">?</TipoServico> " +
+										        "<TipoServico xsi:type=\"xsd:string\">" + calcularFreteRequestTela.getTipoServico() + "</TipoServico> " +
 										        "<CepDestino xsi:type=\"xsd:nonNegativeInteger\">?</CepDestino> " +
 										        "<Peso xsi:type=\"xsd:string\">?</Peso> " +
 										        "<ValorDeclarado xsi:type=\"xsd:string\">?</ValorDeclarado> " +

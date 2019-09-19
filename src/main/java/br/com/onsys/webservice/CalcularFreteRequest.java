@@ -8,7 +8,10 @@
 package br.com.onsys.webservice;
 
 public class CalcularFreteRequest  implements java.io.Serializable {
-    private java.lang.String tipoServico;
+    
+	private static final long serialVersionUID = 1L;
+
+	private java.lang.String tipoServico;
 
     private org.apache.axis.types.NonNegativeInteger cepDestino;
 

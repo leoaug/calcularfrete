@@ -1,5 +1,7 @@
 package br.com.onsys.controller;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -11,8 +13,11 @@ import br.com.onsys.webservice.CalcularFreteRequest;
 
 @Named
 @ViewScoped
-public class CalcularFreteController {
+public class CalcularFreteController implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private CalcularFreteService calcularFreteService;
 	
