@@ -48,10 +48,11 @@ public class CalcularFreteService implements Serializable {
 				
 			Webservice_calculo_freteTotalPortTypeProxy proxy = new Webservice_calculo_freteTotalPortTypeProxy();
 			CalcularFreteRequest calcularFreteRequest = new CalcularFreteRequest();
-			calcularFreteRequest.setCepDestino(new NonNegativeInteger("22723497"));
-			calcularFreteRequest.setTipoServico("EXP");
-			calcularFreteRequest.setPeso("10");
-			calcularFreteRequest.setValorDeclarado("10");
+			calcularFreteRequest.setCepDestino(new NonNegativeInteger(calcularFreteBean.getCepDestino()));
+			calcularFreteRequest.setTipoServico(calcularFreteBean.getTipoServico());
+			calcularFreteRequest.setPeso(calcularFreteBean.getPeso());
+			calcularFreteRequest.setValorDeclarado(calcularFreteBean.getValorDeclarado());
+			calcularFreteRequest.setTipoEntrega(new NonNegativeInteger(calcularFreteBean.getTipoEntrega()));
 			
 			CalcularFreteResponse resp = proxy.calcularFrete(calcularFreteRequest);
 			

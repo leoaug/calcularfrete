@@ -28,28 +28,61 @@
 
 	<p:panel header=".:: Calcular Frete ::.">
 		<h:form>	
-		
+			
 			<div class="ui-fluid">
-       			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
-		
-					<p:outputLabel for="tipoServico" value="Tipo de Serviço:" />
-			        <p:selectOneMenu id="tipoServico" value="#{calcularFreteController.calcularFreteBean.tipoServico}" style="width:125px">
-			         	<f:selectItem itemLabel="Selecione" />
-			            <f:selectItem itemLabel="Expresso" itemValue="EXP" />
-			            <f:selectItem itemLabel="Especial" itemValue="ESP" />
-			            <f:selectItem itemLabel="Premium" itemValue="PRM" />
-			            <f:selectItem itemLabel="Standard" itemValue="STD" />
-			        </p:selectOneMenu>
+       			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">		
+						<p:outputLabel for="tipoServico" value="Tipo de Serviço:" />
+				        <p:selectOneMenu id="tipoServico" value="#{calcularFreteController.calcularFreteBean.tipoServico}" style="width:125px" requiredMessage="Informe o tipo de Serviço" required="true">
+				         	<f:selectItem itemLabel="Selecione" />
+				            <f:selectItem itemLabel="Expresso" itemValue="EXP" />
+				            <f:selectItem itemLabel="Especial" itemValue="ESP" />
+				            <f:selectItem itemLabel="Premium" itemValue="PRM" />
+				            <f:selectItem itemLabel="Standard" itemValue="STD" />
+				        </p:selectOneMenu>
+				        
+				        <p:outputLabel for="cepDestino" value="Cep Destino " />
+	        			<p:inputText id="cepDestino" value="#{calcularFreteController.calcularFreteBean.cepDestino}" required="true" requiredMessage="Informe o cep destino"/>
+	        			
+	        			<p:outputLabel for="peso" value="Peso " />
+	        			<p:inputText id="peso" value="#{calcularFreteController.calcularFreteBean.peso}" required="true" requiredMessage="Informe o Peso"/>
+				        
+				        <p:outputLabel for="valorDeclarado" value="Valor Declarado " />
+	        			<p:inputText id="valorDeclarado" value="#{calcularFreteController.calcularFreteBean.valorDeclarado}" required="true" requiredMessage="Informe o valor declarado"/>
+				        
+				        <p:outputLabel for="tipoEntrega" value="Tipo de Entrega " />
+						<p:selectOneMenu id="tipoEntrega" value="#{calcularFreteController.calcularFreteBean.tipoEntrega}" style="width:125px" requiredMessage="Informe o tipo de Entrega" required="true">
+				         	<f:selectItem itemLabel="Selecione" />
+				            <f:selectItem itemLabel="Entrega Normal" itemValue="0" />
+				            <f:selectItem itemLabel="GoBack" itemValue="1" />
+				            <f:selectItem itemLabel="RMA" itemValue="2" />
+				        </p:selectOneMenu>	
+				</p:panelGrid>   
+				<p:panelGrid columns="1" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">						     
+			        <p:selectBooleanCheckbox value="#{calcularFreteController.calcularFreteBean.servicoCOD}" itemLabel="Existe Código?"/>
+			    </p:panelGrid>
+			    <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">						     
 			        
-			        <p:outputLabel for="cepDestino" value="Cep Destino " />
-        			<p:inputText id="cepDestino" value="#{calcularFreteController.calcularFreteBean.cepDestino}" />
-			        
+			        <p:outputLabel for="altura" value="Altura " />
+        			<p:inputText id="altura" value="#{calcularFreteController.calcularFreteBean.altura}" />
+			        	
+			        <p:outputLabel for="largura" value="Largura " />
+        			<p:inputText id="largura" value="#{calcularFreteController.calcularFreteBean.largura}" />	 
+        			
+        			<p:outputLabel for="profundidade" value="Altura " />
+        			<p:inputText id="profundidade" value="#{calcularFreteController.calcularFreteBean.profundidade}" />	       
 				</p:panelGrid>
 			</div>
 			
-			<p:commandButton value="Calcular Frete" action="#{calcularFreteController.calcularFrete}" />
+			<p:commandButton value="Calcular Frete" action="#{calcularFreteController.calcularFrete}" update="@form"/>
 			
 		</h:form>
 	</p:panel>
+	
+	<br/>
+	
+	<p:panel header=".:: Resultado ::.">
+	
+	</p:panel>
+	
 </h:body>
 </html>
