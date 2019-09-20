@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.onsys.bean.CalcularFreteBean;
 import br.com.onsys.service.CalcularFreteService;
 import br.com.onsys.webservice.CalcularFreteRequest;
+import br.com.onsys.webservice.CalcularFreteResponse;
 
 @ManagedBean
 @ViewScoped
@@ -25,6 +26,8 @@ public class CalcularFreteController implements Serializable {
 	
 	private CalcularFreteBean calcularFreteBean;
 	
+	private CalcularFreteResponse calcularFreteResponse;
+	
 	
 	@PostConstruct
 	public void init() {		
@@ -35,7 +38,7 @@ public class CalcularFreteController implements Serializable {
 				
 		try {					
 						
-			calcularFreteService.calcularFreteRequest(getCalcularFreteBean());
+			setCalcularFreteResponse(calcularFreteService.calcularFreteRequest(getCalcularFreteBean()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,13 +46,6 @@ public class CalcularFreteController implements Serializable {
 		
 	}
 
-	public CalcularFreteService getCalcularFreteService() {
-		return calcularFreteService;
-	}
-
-	public void setCalcularFreteService(CalcularFreteService calcularFreteService) {
-		this.calcularFreteService = calcularFreteService;
-	}
 
 	public CalcularFreteBean getCalcularFreteBean() {
 		return calcularFreteBean;
@@ -59,9 +55,15 @@ public class CalcularFreteController implements Serializable {
 		this.calcularFreteBean = calcularFreteBean;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public CalcularFreteResponse getCalcularFreteResponse() {
+		return calcularFreteResponse;
 	}
+
+	public void setCalcularFreteResponse(CalcularFreteResponse calcularFreteResponse) {
+		this.calcularFreteResponse = calcularFreteResponse;
+	}
+
+	
 
 	
 	

@@ -73,7 +73,7 @@
 				</p:panelGrid>
 			</div>
 			
-			<p:commandButton value="Calcular Frete" action="#{calcularFreteController.calcularFrete}" update="@form"/>
+			<p:commandButton value="Calcular Frete" action="#{calcularFreteController.calcularFrete}" update="@form,idFormResultado"/>
 			
 		</h:form>
 	</p:panel>
@@ -81,6 +81,30 @@
 	<br/>
 	
 	<p:panel header=".:: Resultado ::.">
+		<h:form id="idFormResultado" prependId="false">
+		
+			<h:outputText value="Código de Processamento" style="font-weight: bolder" />
+			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue eq 0}" 
+					value="Cliente não autorizado a realizar o procedimento"/>
+			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue eq 1}" 
+					value="Processado com sucesso"/>
+			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue eq 2}" 
+					value="Sistema indisponível no momento"/>
+			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue eq 3}" 
+					value="Sistema indisponível no momento"/>
+			<br/>
+			<h:outputText value="Erros da TRansmissão" style="font-weight: bolder" />
+			<h:outputText value="#{calcularFreteController.calcularFreteResponse.erroConsultaFrete}"/>
+			
+			<br/>
+			<h:outputText value="Prazo	" style="font-weight: bolder" />
+			<h:outputText value="#{calcularFreteController.calcularFreteResponse.dadosFrete.prazo}"/>
+			
+			<br/>
+			<h:outputText value="Valor Serviço" style="font-weight: bolder" />
+			<h:outputText value="#{calcularFreteController.calcularFreteResponse.dadosFrete.valorServico}"/>
+		
+		</h:form>
 	
 	</p:panel>
 	

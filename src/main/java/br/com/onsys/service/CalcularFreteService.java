@@ -43,7 +43,7 @@ public class CalcularFreteService implements Serializable {
 		
 	}
 
-	public void calcularFreteRequest(CalcularFreteBean calcularFreteBean) throws Exception {
+	public CalcularFreteResponse calcularFreteRequest(CalcularFreteBean calcularFreteBean) throws Exception {
 		try {
 				
 			Webservice_calculo_freteTotalPortTypeProxy proxy = new Webservice_calculo_freteTotalPortTypeProxy();
@@ -57,6 +57,7 @@ public class CalcularFreteService implements Serializable {
 			CalcularFreteResponse resp = proxy.calcularFrete(calcularFreteRequest);
 			
 			System.out.println(resp.getDadosFrete()); 
+			
 			
 			//testar esse cep: 22723497	
 			
@@ -96,7 +97,9 @@ public class CalcularFreteService implements Serializable {
 				CalcularFreteResponse calcularFreteResponse = (CalcularFreteResponse) unmarshaller.unmarshal(message.getSOAPBody().extractContentAsDocument());
 						
 				System.out.println(calcularFreteResponse);
-				*/		
+				*/	
+			
+			return resp;
 		} catch (Exception e) {
 			throw e;
 		}			
