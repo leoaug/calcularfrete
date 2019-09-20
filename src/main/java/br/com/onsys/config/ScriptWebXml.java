@@ -37,7 +37,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@ComponentScan(basePackages={"br.com.onsys.config.*"})
+@ComponentScan(basePackages={"br.com.onsys.*"})
 public class ScriptWebXml implements  WebApplicationInitializer,  WebMvcConfigurer {
 
 	

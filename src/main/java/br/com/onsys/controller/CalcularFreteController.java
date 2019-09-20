@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 import org.apache.axis.types.NonNegativeInteger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,16 @@ import br.com.onsys.service.CalcularFreteService;
 import br.com.onsys.webservice.CalcularFreteRequest;
 import br.com.onsys.webservice.CalcularFreteResponse;
 
-@ManagedBean
+//@ManagedBean
+@Named
 @ViewScoped
 public class CalcularFreteController implements Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;
 
-	//@Autowired
-	private CalcularFreteService calcularFreteService = new CalcularFreteService();
+	@Autowired
+	private CalcularFreteService calcularFreteService;
 	
 	private CalcularFreteBean calcularFreteBean;
 	
@@ -36,8 +38,7 @@ public class CalcularFreteController implements Serializable {
 	
 	public void calcularFrete() {
 				
-		try {					
-						
+		try {										
 			setCalcularFreteResponse(calcularFreteService.calcularFreteRequest(getCalcularFreteBean()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

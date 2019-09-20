@@ -9,7 +9,7 @@
 
 
 	<h:head>
-	 	 <title><h:outputText value="#{msg.welcomeTitle}" /></title>
+	 	<title>Calcular Frete</title>
 		<meta name="generator" content="JSF" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,11 +20,39 @@
 		<meta http-equiv="cache-control" content="post-check=0, pre-check=0" />
 		<meta http-equiv="expires" content="0" />
 		<meta http-equiv="pragma" content="no-cache" />
+		
+		<link rel="stylesheet" href="../css/onsys.css"/>
+	    <link rel="stylesheet" href="../css/selectOneMenu.css"/>
 			
 	</h:head>
 
 
 <h:body>
+
+	 <p:ajaxStatus onstart="PF('statusDialogTemplate').show();" onsuccess="PF('statusDialogTemplate').hide();"/>
+					        
+					    	
+			<p:dialog  style="opacity:0.7 !important; filter:alpha(opacity=80) !important;" styleClass="styleDialogTemplate" 
+	    			   modal="true" 
+	    			   appendTo="@(body)" 
+	    			   showHeader="false" 
+	    			   widgetVar="statusDialogTemplate"  
+	    			   draggable="false" 
+	    			   closable="false" 
+	    			   width="225">
+	   			<p:panelGrid styleClass="ui-noborder">
+	   				<p:row>
+	   			 		<p:column>
+	   			 			<h:outputText value="Carregando.." />
+	   			 		</p:column>	
+	   			 	
+	   				 	<p:column>	
+	   				 		<p:graphicImage value="../img/ajax-loader2.gif" />
+	   				 	</p:column>
+	   				 </p:row>	  			
+	   			</p:panelGrid>
+			</p:dialog>
+
 
 	<p:panel header=".:: Calcular Frete ::.">
 		<h:form>	
@@ -68,12 +96,12 @@
 			        <p:outputLabel for="largura" value="Largura " />
         			<p:inputText id="largura" value="#{calcularFreteController.calcularFreteBean.largura}" />	 
         			
-        			<p:outputLabel for="profundidade" value="Altura " />
+        			<p:outputLabel for="profundidade" value="Profundidade " />
         			<p:inputText id="profundidade" value="#{calcularFreteController.calcularFreteBean.profundidade}" />	       
 				</p:panelGrid>
 			</div>
 			
-			<p:commandButton value="Calcular Frete" action="#{calcularFreteController.calcularFrete}" update="@form,idFormResultado"/>
+			<p:commandButton value="Calcular Frete" onclick="PF('statusDialogTemplate').show();" action="#{calcularFreteController.calcularFrete}" update="@form,idFormResultado"/>
 			
 		</h:form>
 	</p:panel>

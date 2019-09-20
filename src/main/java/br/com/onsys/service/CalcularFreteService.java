@@ -20,7 +20,7 @@ import br.com.onsys.webservice.CalcularFreteResponse;
 import br.com.onsys.webservice.Webservice_calculo_freteTotalBindingStub;
 import br.com.onsys.webservice.Webservice_calculo_freteTotalPortTypeProxy;
 
-//@Service
+@Service
 public class CalcularFreteService implements Serializable {
 	
 	
