@@ -3,11 +3,9 @@ package br.com.onsys.controller;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.apache.axis.types.NonNegativeInteger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.onsys.bean.CalcularFreteBean;
@@ -39,7 +37,7 @@ public class CalcularFreteController implements Serializable {
 	public void calcularFrete() {
 				
 		try {										
-			setCalcularFreteResponse(calcularFreteService.calcularFreteRequest(getCalcularFreteBean()));
+			calcularFreteService.calcularFreteRequest(getCalcularFreteBean());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
