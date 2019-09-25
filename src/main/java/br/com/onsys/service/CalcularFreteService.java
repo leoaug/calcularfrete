@@ -46,6 +46,67 @@ public class CalcularFreteService implements Serializable {
 		
 	}
 
+	
+	public void registraColeta() throws Exception {
+		
+		String request = "<SOAP-ENV:Envelope\n" + 
+				"	xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"\n" + 
+				"	xmlns:ns1=\"urn:RegistraColeta\"\n" + 
+				"	xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n" + 
+				"	xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" + 
+				"	xmlns:ns2=\"http://edi.totalexpress.com.br/soap/webservice_v24.total\"\n" + 
+				"	xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\"\n" + 
+				"	SOAPENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
+				"	<SOAP-ENV:Body>\n" + 
+				"		<ns1:RegistraColeta>\n" + 
+				"			<RegistraColetaRequest\n" + 
+				"				xsi:type=\"ns2:RegistraColetaRequest\">\n" + 
+				"				<CodRemessa xsi:type=\"xsd:string\"></CodRemessa>\n" + 
+				"				<Encomendas SOAP-ENC:arrayType=\"ns2:Encomenda[1]\"\n" + 
+				"					xsi:type=\"ns2:Encomendas\">\n" + 
+				"					<item xsi:type=\"ns2:Encomenda\">\n" + 
+				"						<TipoServico xsi:type=\"xsd:nonNegativeInteger\">0</TipoServico>\n" + 
+				"						<TipoEntrega xsi:type=\"xsd:nonNegativeInteger\">0</TipoEntrega>\n" + 
+				"						<Volumes xsi:type=\"xsd:nonNegativeInteger\">0</Volumes>\n" + 
+				"						<CondFrete xsi:type=\"xsd:string\">0</CondFrete>\n" + 
+				"						<Pedido xsi:type=\"xsd:string\">0</Pedido>\n" + 
+				"						<IdCliente xsi:type=\"xsd:string\">0</IdCliente>\n" + 
+				"						<Natureza xsi:type=\"xsd:string\">0</Natureza>\n" + 
+				"						<IsencaoIcms xsi:type=\"xsd:nonNegativeInteger\">0</IsencaoIcms>\n" + 
+				"						<DestNome xsi:type=\"xsd:string\">0</DestNome>\n" + 
+				"						<DestCpfCnpj xsi:type=\"xsd:string\">0</DestCpfCnpj>\n" + 
+				"						<DestEnd xsi:type=\"xsd:string\">0</DestEnd>\n" + 
+				"						<DestEndNum xsi:type=\"xsd:string\">0</DestEndNum>\n" + 
+				"						<DestCompl xsi:type=\"xsd:string\">0</DestCompl>\n" + 
+				"						<DestBairro xsi:type=\"xsd:string\">0</DestBairro>\n" + 
+				"						<DestCidade xsi:type=\"xsd:string\">0</DestCidade>\n" + 
+				"						<DestEstado xsi:type=\"xsd:string\">0</DestEstado>\n" + 
+				"						<DestCep xsi:type=\"xsd:nonNegativeInteger\">0</DestCep>\n" + 
+				"						<DestEmail xsi:type=\"xsd:string\">0</DestEmail>\n" + 
+				"						<DestDdd xsi:type=\"xsd:nonNegativeInteger\">0</DestDdd>\n" + 
+				"						<DestTelefone1 xsi:type=\"xsd:nonNegativeInteger\">0</DestTelefone1>\n" + 
+				"						<DocFiscalNFe SOAP-ENC:arrayType=\"ns2:NFe[1]\"\n" + 
+				"							xsi:type=\"ns2:DocFiscalNFe\">\n" + 
+				"							<item xsi:type=\"ns2:NFe\">\n" + 
+				"								<NfeNumero xsi:type=\"xsd:nonNegativeInteger\">0</NfeNumero>\n" + 
+				"								<NfeSerie xsi:type=\"xsd:nonNegativeInteger\">0</NfeSerie>\n" + 
+				"								<NfeData xsi:type=\"xsd:date\">0</NfeData>\n" + 
+				"								<NfeValTotal xsi:type=\"xsd:decimal\">0</NfeValTotal>\n" + 
+				"								<NfeValProd xsi:type=\"xsd:decimal\">0</NfeValProd>\n" + 
+				"								<NfeCfop xsi:type=\"xsd:nonNegativeInteger\">0</NfeCfop>\n" + 
+				"								<NfeChave xsi:type=\"xsd:string\"> 0 </NfeChave>\n" + 
+				"							</item>\n" + 
+				"						</DocFiscalNFe>\n" + 
+				"					</item>\n" + 
+				"				</Encomendas>\n" + 
+				"			</RegistraColetaRequest>\n" + 
+				"		</ns1:RegistraColeta>\n" + 
+				"	</SOAP-ENV:Body>\n" + 
+				"</SOAP-ENV:Envelope> ";
+				
+		
+	}
+	
 	public void calcularFreteRequest(CalcularFreteBean calcularFreteBean) throws Exception {
 		try {
 			/*
@@ -95,8 +156,10 @@ public class CalcularFreteService implements Serializable {
 								   "</soapenv:Body> " +
 								"</soapenv:Envelope> ";
 				
-				String response =  WebServiceUtil.carregaXMLWebServices(request,"btf-qa","8ZJPQbkv","https://edi.totalexpress.com.br/webservice_calculo_frete.php?wsdl");
-				
+				//String response =  WebServiceUtil.carregaXMLWebServices(request,"btf-qa","8ZJPQbkv","https://edi.totalexpress.com.br/webservice_calculo_frete.php?wsdl");
+				String response =  WebServiceUtil.carregaXMLWebServicesComProxy(request,"btf-qa","8ZJPQbkv",
+						"https://edi.totalexpress.com.br/webservice_calculo_frete.php?wsdl","c1260311","95350120","localhost",40080);
+
 				CalcularFreteResponse resp = this.unmarshallFromXMLToObject(CalcularFreteResponse.class, response);
 				
 				System.out.println(resp);
