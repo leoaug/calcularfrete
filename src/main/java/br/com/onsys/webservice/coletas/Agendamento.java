@@ -9,7 +9,7 @@ package br.com.onsys.webservice.coletas;
 
 public class Agendamento  implements java.io.Serializable {
     private java.util.Date agData;
-
+ 
     private java.lang.String agPeriodo1;
 
     private java.lang.String agPeriodo2;

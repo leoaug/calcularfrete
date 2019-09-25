@@ -6,7 +6,7 @@
  */
 
 package br.com.onsys.webservice.coletas;
-
+ 
 public class StatusEct  implements java.io.Serializable {
     private java.lang.String ectTipo;
 

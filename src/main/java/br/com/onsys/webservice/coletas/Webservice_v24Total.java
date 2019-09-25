@@ -6,7 +6,7 @@
  */
 
 package br.com.onsys.webservice.coletas;
-
+ 
 public interface Webservice_v24Total extends javax.xml.rpc.Service {
     public java.lang.String getWebservice_v24TotalPortAddress();
 

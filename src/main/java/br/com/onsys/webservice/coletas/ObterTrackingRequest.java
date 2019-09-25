@@ -6,7 +6,7 @@
  */
 
 package br.com.onsys.webservice.coletas;
-
+ 
 public class ObterTrackingRequest  implements java.io.Serializable {
     private java.util.Date dataConsulta;
 

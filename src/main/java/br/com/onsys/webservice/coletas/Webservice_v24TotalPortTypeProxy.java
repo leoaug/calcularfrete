@@ -1,5 +1,5 @@
 package br.com.onsys.webservice.coletas;
-
+ 
 public class Webservice_v24TotalPortTypeProxy implements br.com.onsys.webservice.coletas.Webservice_v24TotalPortType {
   private String _endpoint = null;
   private br.com.onsys.webservice.coletas.Webservice_v24TotalPortType webservice_v24TotalPortType = null;

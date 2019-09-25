@@ -6,7 +6,7 @@
  */
 
 package br.com.onsys.webservice.coletas;
-
+ 
 public class Webservice_v24TotalBindingStub extends org.apache.axis.client.Stub implements br.com.onsys.webservice.coletas.Webservice_v24TotalPortType {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();

@@ -6,7 +6,7 @@
  */
 
 package br.com.onsys.webservice.coletas;
-
+ 
 public class RegistraColetaRequest  implements java.io.Serializable {
     private java.lang.String codRemessa;
 

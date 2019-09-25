@@ -13,7 +13,7 @@ public class Cod  implements java.io.Serializable {
     private org.apache.axis.types.NonNegativeInteger parcelas;
 
     private java.math.BigDecimal valor;
-
+ 
     public Cod() {
     }
 

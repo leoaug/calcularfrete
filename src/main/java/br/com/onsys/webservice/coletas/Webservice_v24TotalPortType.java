@@ -6,7 +6,7 @@
  */
 
 package br.com.onsys.webservice.coletas;
-
+ 
 public interface Webservice_v24TotalPortType extends java.rmi.Remote {
 
     /**

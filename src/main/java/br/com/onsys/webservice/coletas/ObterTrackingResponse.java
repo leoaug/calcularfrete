@@ -6,7 +6,7 @@
  */
 
 package br.com.onsys.webservice.coletas;
-
+ 
 public class ObterTrackingResponse  implements java.io.Serializable {
     private org.apache.axis.types.NonNegativeInteger codigoProc;
 

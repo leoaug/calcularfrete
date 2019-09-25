@@ -6,7 +6,7 @@
  */
 
 package br.com.onsys.webservice.coletas;
-
+ 
 public class Webservice_v24TotalLocator extends org.apache.axis.client.Service implements br.com.onsys.webservice.coletas.Webservice_v24Total {
 
     public Webservice_v24TotalLocator() {
