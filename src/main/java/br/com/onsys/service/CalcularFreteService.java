@@ -46,9 +46,37 @@ public class CalcularFreteService implements Serializable {
 		
 	}
 
+	public void obterTracking() {
+		
+		String request = "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:ObterTracking\">\n" + 
+				"   <soapenv:Header/>\n" + 
+				"   <soapenv:Body>\n" + 
+				"      <urn:ObterTracking soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
+				"         <ObterTrackingRequest xsi:type=\"web:ObterTrackingRequest\" xmlns:web=\"http://edi.totalexpress.com.br/soap/webservice_v24.total\">\n" + 
+				"            <!--Optional:-->\n" + 
+				"            <DataConsulta xsi:type=\"xsd:date\">?</DataConsulta>\n" + 
+				"         </ObterTrackingRequest>\n" + 
+				"      </urn:ObterTracking>\n" + 
+				"   </soapenv:Body>\n" + 
+				"</soapenv:Envelope>";
+		
+	}
 	
 	public void registraColeta() throws Exception {
+		String request = "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:RegistraColeta\" xmlns:soapenc=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
+				"   <soapenv:Header/>\n" + 
+				"   <soapenv:Body>\n" + 
+				"      <urn:RegistraColeta soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
+				"         <RegistraColetaRequest xsi:type=\"web:RegistraColetaRequest\" xmlns:web=\"http://edi.totalexpress.com.br/soap/webservice_v24.total\">\n" + 
+				"            <!--You may enter the following 2 items in any order-->\n" + 
+				"            <CodRemessa xsi:type=\"xsd:string\">?</CodRemessa>\n" + 
+				"            <Encomendas xsi:type=\"web:Encomendas\" soapenc:arrayType=\"web:Encomenda[]\"/>\n" + 
+				"         </RegistraColetaRequest>\n" + 
+				"      </urn:RegistraColeta>\n" + 
+				"   </soapenv:Body>\n" + 
+				"</soapenv:Envelope>";
 		
+		/* 
 		String request = "<SOAP-ENV:Envelope\n" + 
 				"	xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"\n" + 
 				"	xmlns:ns1=\"urn:RegistraColeta\"\n" + 
@@ -103,7 +131,7 @@ public class CalcularFreteService implements Serializable {
 				"		</ns1:RegistraColeta>\n" + 
 				"	</SOAP-ENV:Body>\n" + 
 				"</SOAP-ENV:Envelope> ";
-				
+				*/
 		
 	}
 	
