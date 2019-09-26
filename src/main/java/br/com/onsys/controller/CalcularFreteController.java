@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.onsys.bean.CalcularFreteBean;
 import br.com.onsys.service.CalcularFreteService;
-import br.com.onsys.webservice.CalcularFreteRequest;
 import br.com.onsys.webservice.CalcularFreteResponse;
 
-//@ManagedBean
+
 @Named
 @ViewScoped
 public class CalcularFreteController implements Serializable {
@@ -39,9 +38,10 @@ public class CalcularFreteController implements Serializable {
 	public void calcularFrete() {
 				
 		try {										
-			//calcularFreteService.calcularFreteRequest(getCalcularFreteBean());
-			
-			calcularFreteService.registraColeta();
+			setCalcularFreteResponse(calcularFreteService.calcularFreteRequest(getCalcularFreteBean()));
+	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Frete Calculado."));
+
+			//calcularFreteService.registraColeta();
 		} catch (Exception e) {
 	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Erro ao registrar coleta"));
 

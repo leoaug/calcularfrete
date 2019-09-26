@@ -12,13 +12,15 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 
 public class WebServiceUtil {
 
-	public static String carregaXMLWebServices(String request,String login, String senha,String wsdl) throws Exception {
+	public static String carregaXMLWebServices(String request,String login, String senha,String wsdl,String soapAction) throws Exception {
 		try {
 			
 			
@@ -38,7 +40,7 @@ public class WebServiceUtil {
 			httpPost.addHeader("Content-Type", "text/xml; charset=utf-8");
 		    httpPost.setEntity(stringEntity);
 		    httpPost.addHeader("Accept", "text/xml");	
-		    //httpPost.addHeader("SOAPAction", "Get");	
+		    httpPost.addHeader("SOAPAction", soapAction);	
 		    
 		    // Execute and get the response.
 		    HttpClient httpClient = HttpClientBuilder.create().build();
@@ -53,7 +55,7 @@ public class WebServiceUtil {
 		}
 	}
 	
-	public static String carregaXMLWebServicesComProxy(String request,String login, String senha,String wsdl,String userProxy,String passProxy,String proxyHost,Integer proxyPort) throws Exception {
+	public static String carregaXMLWebServicesComProxy(String request,String login, String senha,String wsdl,String soapAction,String userProxy,String passProxy,String proxyHost,Integer proxyPort) throws Exception {
 		try {
 			
 			
@@ -86,10 +88,20 @@ public class WebServiceUtil {
 			httpPost.addHeader("Content-Type", "text/xml; charset=utf-8");
 		    httpPost.setEntity(stringEntity);
 		    httpPost.addHeader("Accept", "text/xml");	
-		    //httpPost.addHeader("SOAPAction", "Get");	
+		    httpPost.addHeader("SOAPAction", soapAction);	
+		 
+		    
+		    //Creating the HttpClientBuilder
+		    HttpClientBuilder clientbuilder = HttpClients.custom();
+
+		    //Setting the credentials
+		    clientbuilder = clientbuilder.setDefaultCredentialsProvider(credsProvider);
+	      
+		    //Building the CloseableHttpClient object
+		    CloseableHttpClient httpClient = clientbuilder.build();
 		    
 		    // Execute and get the response.
-		    HttpClient httpClient = HttpClientBuilder.create().build();
+		    //HttpClient httpClient = HttpClientBuilder.create().build();
 		    HttpResponse response = httpClient.execute(httpPost);
 		    HttpEntity entity = response.getEntity();
 

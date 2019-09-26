@@ -79,11 +79,11 @@
 
 	<p:panel header=".:: Calcular Frete ::.">
 		<h:form>	
-			<p:growl autoUpdate="true"/>
+			<p:growl showDetail="true"/>
 			<div class="ui-fluid">
        			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">		
 						<p:outputLabel for="tipoServico" value="Tipo de Serviço:" />
-				        <p:selectOneMenu id="tipoServico" styleClass="oneMenuBoxResising" value="#{calcularFreteController.calcularFreteBean.tipoServico}" style="width:125px" requiredMessage="Informe o tipo de Serviço" required="true">
+				        <p:selectOneMenu id="tipoServico" styleClass="oneMenuBoxResising" value="#{calcularFreteController.calcularFreteBean.tipoServico}" requiredMessage="Informe o tipo de Serviço" required="true">
 				         	<f:selectItem itemLabel="Selecione" />
 				            <f:selectItem itemLabel="Expresso" itemValue="EXP" />
 				            <f:selectItem itemLabel="Especial" itemValue="ESP" />
@@ -101,7 +101,7 @@
 	        			<p:inputText id="valorDeclarado" value="#{calcularFreteController.calcularFreteBean.valorDeclarado}" required="true" requiredMessage="Informe o valor declarado"/>
 				        
 				        <p:outputLabel for="tipoEntrega" value="Tipo de Entrega " />
-						<p:selectOneMenu id="tipoEntrega" value="#{calcularFreteController.calcularFreteBean.tipoEntrega}" style="width:125px" requiredMessage="Informe o tipo de Entrega" required="true">
+						<p:selectOneMenu id="tipoEntrega" value="#{calcularFreteController.calcularFreteBean.tipoEntrega}" requiredMessage="Informe o tipo de Entrega" required="true">
 				         	<f:selectItem itemLabel="Selecione" />
 				            <f:selectItem itemLabel="Entrega Normal" itemValue="0" />
 				            <f:selectItem itemLabel="GoBack" itemValue="1" />
@@ -124,7 +124,10 @@
 				</p:panelGrid>
 			</div>
 			
-			<p:commandButton value="Calcular Frete" onclick="PF('statusDialogTemplate').show();" action="#{calcularFreteController.calcularFrete}" update="@form,idFormResultado"/>
+			<p:commandButton value="Calcular Frete" 
+							 onclick="PF('statusDialogTemplate').show();" 
+							 action="#{calcularFreteController.calcularFrete}" 
+							 update="@form,idFormResultado"/>
 			
 		</h:form>
 	</p:panel>
@@ -134,25 +137,25 @@
 	<p:panel header=".:: Resultado ::.">
 		<h:form id="idFormResultado" prependId="false">
 		
-			<h:outputText value="Código de Processamento" style="font-weight: bolder" />
-			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue eq 0}" 
+			<h:outputText value="Código de Processamento: " style="font-weight: bolder" />
+			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue() eq 0}" 
 					value="Cliente não autorizado a realizar o procedimento"/>
-			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue eq 1}" 
-					value="Processado com sucesso"/>
-			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue eq 2}" 
-					value="Sistema indisponível no momento"/>
-			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue eq 3}" 
-					value="Sistema indisponível no momento"/>
+			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue() eq 1}" 
+					value="Processado com sucesso: "/>
+			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue() eq 2}" 
+					value="Sistema indisponível no momento: "/>
+			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue() eq 3}" 
+					value="Sistema indisponível no momento: "/>
 			<br/>
-			<h:outputText value="Erros da TRansmissão" style="font-weight: bolder" />
+			<h:outputText value="Erros da Transmissão: " style="font-weight: bolder" />
 			<h:outputText value="#{calcularFreteController.calcularFreteResponse.erroConsultaFrete}"/>
 			
 			<br/>
-			<h:outputText value="Prazo	" style="font-weight: bolder" />
+			<h:outputText value="Prazo: " style="font-weight: bolder" />
 			<h:outputText value="#{calcularFreteController.calcularFreteResponse.dadosFrete.prazo}"/>
 			
 			<br/>
-			<h:outputText value="Valor Serviço" style="font-weight: bolder" />
+			<h:outputText value="Valor Serviço: " style="font-weight: bolder" />
 			<h:outputText value="#{calcularFreteController.calcularFreteResponse.dadosFrete.valorServico}"/>
 		
 		</h:form>

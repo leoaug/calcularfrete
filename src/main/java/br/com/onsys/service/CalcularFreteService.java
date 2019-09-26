@@ -1,27 +1,48 @@
 package br.com.onsys.service;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.rmi.RemoteException;
+import java.util.Iterator;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.UnmarshallerHandler;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.MessageFactory;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPConstants;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
+import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.axis.AxisFault;
 import org.apache.axis.types.NonNegativeInteger;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import br.com.onsys.bean.CalcularFreteBean;
 import br.com.onsys.service.util.WebServiceUtil;
+import br.com.onsys.util.JAXBUtil;
 import br.com.onsys.webservice.CalcularFreteRequest;
 import br.com.onsys.webservice.CalcularFreteResponse;
+import br.com.onsys.webservice.DadosFrete;
 import br.com.onsys.webservice.Webservice_calculo_freteTotalBindingStub;
 import br.com.onsys.webservice.Webservice_calculo_freteTotalPortTypeProxy;
+import br.com.onsys.webservice.coletas.RegistraColetaResponse;
+import br.com.onsys.webservice.coletas.Webservice_v24TotalBindingStub;
+import br.com.onsys.webservice.coletas.Webservice_v24TotalLocator;
 
 @Service
 public class CalcularFreteService implements Serializable {
@@ -62,19 +83,46 @@ public class CalcularFreteService implements Serializable {
 		
 	}
 	
-	public void registraColeta() throws Exception {
+	public RegistraColetaResponse registraColeta() throws Exception {
+		
+		
+		
+		
+		String codRemessa = "12";
+		
 		String request = "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:RegistraColeta\" xmlns:soapenc=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
 				"   <soapenv:Header/>\n" + 
 				"   <soapenv:Body>\n" + 
 				"      <urn:RegistraColeta soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
 				"         <RegistraColetaRequest xsi:type=\"web:RegistraColetaRequest\" xmlns:web=\"http://edi.totalexpress.com.br/soap/webservice_v24.total\">\n" + 
 				"            <!--You may enter the following 2 items in any order-->\n" + 
-				"            <CodRemessa xsi:type=\"xsd:string\">?</CodRemessa>\n" + 
+				"            <CodRemessa xsi:type=\"xsd:string\">"+codRemessa+"</CodRemessa>\n" + 
 				"            <Encomendas xsi:type=\"web:Encomendas\" soapenc:arrayType=\"web:Encomenda[]\"/>\n" + 
 				"         </RegistraColetaRequest>\n" + 
 				"      </urn:RegistraColeta>\n" + 
 				"   </soapenv:Body>\n" + 
 				"</soapenv:Envelope>";
+		String response =  WebServiceUtil.carregaXMLWebServicesComProxy(request,"btf-qa","8ZJPQbkv","https://edi.totalexpress.com.br/webservice24.php?wsdl","RegistraColeta",
+				"c1260311", "95350120", "localhost", 40080);
+
+		
+		//RegistraColetaResponse registraColetaResponse = JAXBUtil.unmarshallFromXMLToObject(RegistraColetaResponse.class, response);
+		String ISO = "ISO-8859-1";
+		String UTF_8 = "UTF_8";
+		
+		SOAPMessage message = MessageFactory.newInstance().createMessage(null,new ByteArrayInputStream(response.getBytes(ISO)));
+		SOAPEnvelope soapEnv = message.getSOAPPart().getEnvelope();
+		SOAPBody body =	soapEnv.getBody();
+		
+		System.out.println(body.getAttribute("CodigoProc")); 
+		
+		/*
+		Unmarshaller unmarshaller = JAXBContext.newInstance(RegistraColetaResponse.class).createUnmarshaller();
+		RegistraColetaResponse registraColetaResponse = (RegistraColetaResponse) unmarshaller.unmarshal(message.getSOAPBody().extractContentAsDocument());
+		*/
+		//System.out.println(registraColetaResponse.getCodigoProc()); 
+		
+		return null;
 		
 		/* 
 		String request = "<SOAP-ENV:Envelope\n" + 
@@ -135,24 +183,9 @@ public class CalcularFreteService implements Serializable {
 		
 	}
 	
-	public void calcularFreteRequest(CalcularFreteBean calcularFreteBean) throws Exception {
+	public CalcularFreteResponse calcularFreteRequest(CalcularFreteBean calcularFreteBean) throws Exception {
 		try {
-			/*
-			Webservice_calculo_freteTotalPortTypeProxy proxy = new Webservice_calculo_freteTotalPortTypeProxy();
-			CalcularFreteRequest calcularFreteRequest = new CalcularFreteRequest();
-			calcularFreteRequest.setCepDestino(new NonNegativeInteger(calcularFreteBean.getCepDestino()));
-			calcularFreteRequest.setTipoServico(calcularFreteBean.getTipoServico());
-			calcularFreteRequest.setPeso(calcularFreteBean.getPeso());
-			calcularFreteRequest.setValorDeclarado(calcularFreteBean.getValorDeclarado());
-			calcularFreteRequest.setTipoEntrega(new NonNegativeInteger(calcularFreteBean.getTipoEntrega()));
-			
-			CalcularFreteResponse resp = proxy.calcularFrete(calcularFreteRequest);
-			
-			System.out.println(resp.getDadosFrete()); 
-			 */	
-			
-			//testar esse cep: 22723497	
-			
+					
 			
 				String tipoServico = calcularFreteBean.getTipoServico() == null ? "?" :  calcularFreteBean.getTipoServico();
 				String cepDestino = calcularFreteBean.getCepDestino() == null ? "?" : calcularFreteBean.getCepDestino();
@@ -184,33 +217,85 @@ public class CalcularFreteService implements Serializable {
 								   "</soapenv:Body> " +
 								"</soapenv:Envelope> ";
 				
-				//String response =  WebServiceUtil.carregaXMLWebServices(request,"btf-qa","8ZJPQbkv","https://edi.totalexpress.com.br/webservice_calculo_frete.php?wsdl");
-				String response =  WebServiceUtil.carregaXMLWebServicesComProxy(request,"btf-qa","8ZJPQbkv",
-						"https://edi.totalexpress.com.br/webservice_calculo_frete.php?wsdl","c1260311","95350120","localhost",40080);
-
-				CalcularFreteResponse resp = this.unmarshallFromXMLToObject(CalcularFreteResponse.class, response);
+				String WSDL = "https://edi.totalexpress.com.br/webservice_calculo_frete.php?wsdl";
 				
-				System.out.println(resp);
+				/**
+				 * caso a rede tenha proxy, usar esse método
+				 */
+				String responseComproxy =  WebServiceUtil.carregaXMLWebServicesComProxy(request,"btf-qa","8ZJPQbkv",WSDL,"calcularFrete","c1260311","95350120","localhost",40080);
 				
-				/* 
-				SOAPMessage message = MessageFactory.newInstance().createMessage(null,new ByteArrayInputStream(response.getBytes("UTF-8")));
-				Unmarshaller unmarshaller = JAXBContext.newInstance(CalcularFreteResponse.class).createUnmarshaller();
-				CalcularFreteResponse calcularFreteResponse = (CalcularFreteResponse) unmarshaller.unmarshal(message.getSOAPBody().extractContentAsDocument());
+				String response =  WebServiceUtil.carregaXMLWebServices(request,"btf-qa","8ZJPQbkv",WSDL,"calcularFrete");
 						
-				System.out.println(calcularFreteResponse);
-				*/
-			
-			//return calcularFreteResponse;
+				CalcularFreteResponse calcularFreteResponse = this.preecherCalcularFreteResponse(response);
+				
+								
+				return calcularFreteResponse;
+				
 		} catch (Exception e) {
 			throw e;
 		}			
 		
 	}
+
+	private CalcularFreteResponse preecherCalcularFreteResponse(String response) throws Exception  {
+
+		CalcularFreteResponse calcularFreteResponse = new CalcularFreteResponse();
+		try {
+
+			//Get Document Builder
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+
+			//Build Document
+			Document document = builder.parse(new InputSource(new StringReader(response)));
+
+			//Normalize the XML Structure; It's just too important !!
+			document.getDocumentElement().normalize();
+
+			//Here comes the root node
+			Element root = document.getDocumentElement();
+			System.out.println(root.getNodeName());
+
+			
+			NodeList nList = document.getElementsByTagName("calcularFreteResponse");
+			System.out.println("============================");
+			
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+				Node node = nList.item(temp);
+				System.out.println("");    //Just a separator
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					
+					Element eElement = (Element) node;
+					calcularFreteResponse.setErroConsultaFrete(eElement.getElementsByTagName("ErroConsultaFrete").item(0) == null ? "" : eElement.getElementsByTagName("ErroConsultaFrete").item(0).getTextContent());
+					calcularFreteResponse.setCodigoProc(new NonNegativeInteger(eElement.getElementsByTagName("CodigoProc").item(0).getTextContent()));
+					
+					if(eElement.getAttribute("DadosFrete") != null){
+						
+						calcularFreteResponse.setDadosFrete(new DadosFrete());
+						
+						NodeList ListaDadosFrete = eElement.getChildNodes();
+						for (int i = 0; temp < ListaDadosFrete.getLength(); temp++) {
+							System.out.println("Prazo "  + eElement.getElementsByTagName("Prazo").item(0).getTextContent());
+							calcularFreteResponse.getDadosFrete().setPrazo(eElement.getElementsByTagName("Prazo").item(0).getTextContent());
+							
+							System.out.println("ValorServico "  + eElement.getElementsByTagName("ValorServico").item(0).getTextContent());
+							calcularFreteResponse.getDadosFrete().setValorServico(eElement.getElementsByTagName("ValorServico").item(0).getTextContent());
+							
+						}
+					}
+						
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		return calcularFreteResponse;
+		
+	}
 	
-	public static <T> T unmarshallFromXMLToObject(Class<T> classReference, String xmlToUnmarshall) throws JAXBException {  
-        JAXBContext context = JAXBContext.newInstance(classReference);  
-        Unmarshaller unmarshaller = context.createUnmarshaller();  
-        return unmarshaller.unmarshal(new StreamSource(new StringReader(xmlToUnmarshall)), classReference).getValue();  
-    }
+	
+	
 
 }

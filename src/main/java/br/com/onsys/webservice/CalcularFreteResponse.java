@@ -8,7 +8,10 @@
 package br.com.onsys.webservice;
 
 public class CalcularFreteResponse  implements java.io.Serializable {
-    private org.apache.axis.types.NonNegativeInteger codigoProc;
+   
+	private static final long serialVersionUID = 1L;
+
+	private org.apache.axis.types.NonNegativeInteger codigoProc;
 
     private br.com.onsys.webservice.DadosFrete dadosFrete;
 
