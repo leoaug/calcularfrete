@@ -3,6 +3,8 @@ package br.com.onsys.controller;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -37,9 +39,12 @@ public class CalcularFreteController implements Serializable {
 	public void calcularFrete() {
 				
 		try {										
-			calcularFreteService.calcularFreteRequest(getCalcularFreteBean());
+			//calcularFreteService.calcularFreteRequest(getCalcularFreteBean());
+			
+			calcularFreteService.registraColeta();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Erro ao registrar coleta"));
+
 			e.printStackTrace();
 		}
 		
