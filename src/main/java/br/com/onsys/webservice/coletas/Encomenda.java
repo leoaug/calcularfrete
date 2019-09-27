@@ -10,13 +10,13 @@ package br.com.onsys.webservice.coletas;
 import java.util.List;
 
 public class Encomenda  implements java.io.Serializable {
-    private org.apache.axis.types.NonNegativeInteger tipoServico;
+    private Integer tipoServico;
 
-    private org.apache.axis.types.NonNegativeInteger tipoEntrega;
+    private Integer tipoEntrega;
 
     private java.math.BigDecimal peso;
 
-    private org.apache.axis.types.NonNegativeInteger volumes;
+    private Integer volumes;
 
     private java.lang.String condFrete;
 
@@ -28,7 +28,7 @@ public class Encomenda  implements java.io.Serializable {
 
     private java.lang.String tipoVolumes;
 
-    private org.apache.axis.types.NonNegativeInteger isencaoIcms;
+    private Integer isencaoIcms;
 
     private java.lang.String infoColeta;
 
@@ -54,17 +54,17 @@ public class Encomenda  implements java.io.Serializable {
 
     private java.lang.String destPais;
 
-    private org.apache.axis.types.NonNegativeInteger destCep;
+    private Integer destCep;
 
     private java.lang.String destEmail;
 
-    private org.apache.axis.types.NonNegativeInteger destDdd;
+    private Integer destDdd;
 
-    private org.apache.axis.types.NonNegativeInteger destTelefone1;
+    private Integer destTelefone1;
 
-    private org.apache.axis.types.NonNegativeInteger destTelefone2;
+    private Integer destTelefone2;
 
-    private org.apache.axis.types.NonNegativeInteger destTelefone3;
+    private Integer destTelefone3;
 
     private java.lang.String campanha;
 
@@ -86,16 +86,16 @@ public class Encomenda  implements java.io.Serializable {
     }
 
     public Encomenda(
-           org.apache.axis.types.NonNegativeInteger tipoServico,
-           org.apache.axis.types.NonNegativeInteger tipoEntrega,
+           Integer tipoServico,
+           Integer tipoEntrega,
            java.math.BigDecimal peso,
-           org.apache.axis.types.NonNegativeInteger volumes,
+           Integer volumes,
            java.lang.String condFrete,
            java.lang.String pedido,
            java.lang.String idCliente,
            java.lang.String natureza,
            java.lang.String tipoVolumes,
-           org.apache.axis.types.NonNegativeInteger isencaoIcms,
+           Integer isencaoIcms,
            java.lang.String infoColeta,
            java.lang.String destNome,
            java.lang.String destCpfCnpj,
@@ -108,12 +108,12 @@ public class Encomenda  implements java.io.Serializable {
            java.lang.String destCidade,
            java.lang.String destEstado,
            java.lang.String destPais,
-           org.apache.axis.types.NonNegativeInteger destCep,
+           Integer destCep,
            java.lang.String destEmail,
-           org.apache.axis.types.NonNegativeInteger destDdd,
-           org.apache.axis.types.NonNegativeInteger destTelefone1,
-           org.apache.axis.types.NonNegativeInteger destTelefone2,
-           org.apache.axis.types.NonNegativeInteger destTelefone3,
+           Integer destDdd,
+           Integer destTelefone1,
+           Integer destTelefone2,
+           Integer destTelefone3,
            java.lang.String campanha,
            br.com.onsys.webservice.coletas.Cod cod,
            br.com.onsys.webservice.coletas.Agendamento agendamento,
@@ -175,7 +175,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return tipoServico
      */
-    public org.apache.axis.types.NonNegativeInteger getTipoServico() {
+    public Integer getTipoServico() {
         return tipoServico;
     }
 
@@ -185,7 +185,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param tipoServico
      */
-    public void setTipoServico(org.apache.axis.types.NonNegativeInteger tipoServico) {
+    public void setTipoServico(Integer tipoServico) {
         this.tipoServico = tipoServico;
     }
 
@@ -195,7 +195,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return tipoEntrega
      */
-    public org.apache.axis.types.NonNegativeInteger getTipoEntrega() {
+    public Integer getTipoEntrega() {
         return tipoEntrega;
     }
 
@@ -205,7 +205,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param tipoEntrega
      */
-    public void setTipoEntrega(org.apache.axis.types.NonNegativeInteger tipoEntrega) {
+    public void setTipoEntrega(Integer tipoEntrega) {
         this.tipoEntrega = tipoEntrega;
     }
 
@@ -235,7 +235,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return volumes
      */
-    public org.apache.axis.types.NonNegativeInteger getVolumes() {
+    public Integer getVolumes() {
         return volumes;
     }
 
@@ -245,7 +245,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param volumes
      */
-    public void setVolumes(org.apache.axis.types.NonNegativeInteger volumes) {
+    public void setVolumes(Integer volumes) {
         this.volumes = volumes;
     }
 
@@ -355,7 +355,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return isencaoIcms
      */
-    public org.apache.axis.types.NonNegativeInteger getIsencaoIcms() {
+    public Integer getIsencaoIcms() {
         return isencaoIcms;
     }
 
@@ -365,7 +365,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param isencaoIcms
      */
-    public void setIsencaoIcms(org.apache.axis.types.NonNegativeInteger isencaoIcms) {
+    public void setIsencaoIcms(Integer isencaoIcms) {
         this.isencaoIcms = isencaoIcms;
     }
 
@@ -615,7 +615,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return destCep
      */
-    public org.apache.axis.types.NonNegativeInteger getDestCep() {
+    public Integer getDestCep() {
         return destCep;
     }
 
@@ -625,7 +625,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param destCep
      */
-    public void setDestCep(org.apache.axis.types.NonNegativeInteger destCep) {
+    public void setDestCep(Integer destCep) {
         this.destCep = destCep;
     }
 
@@ -655,7 +655,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return destDdd
      */
-    public org.apache.axis.types.NonNegativeInteger getDestDdd() {
+    public Integer getDestDdd() {
         return destDdd;
     }
 
@@ -665,7 +665,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param destDdd
      */
-    public void setDestDdd(org.apache.axis.types.NonNegativeInteger destDdd) {
+    public void setDestDdd(Integer destDdd) {
         this.destDdd = destDdd;
     }
 
@@ -675,7 +675,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return destTelefone1
      */
-    public org.apache.axis.types.NonNegativeInteger getDestTelefone1() {
+    public Integer getDestTelefone1() {
         return destTelefone1;
     }
 
@@ -685,7 +685,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param destTelefone1
      */
-    public void setDestTelefone1(org.apache.axis.types.NonNegativeInteger destTelefone1) {
+    public void setDestTelefone1(Integer destTelefone1) {
         this.destTelefone1 = destTelefone1;
     }
 
@@ -695,7 +695,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return destTelefone2
      */
-    public org.apache.axis.types.NonNegativeInteger getDestTelefone2() {
+    public Integer getDestTelefone2() {
         return destTelefone2;
     }
 
@@ -705,7 +705,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param destTelefone2
      */
-    public void setDestTelefone2(org.apache.axis.types.NonNegativeInteger destTelefone2) {
+    public void setDestTelefone2(Integer destTelefone2) {
         this.destTelefone2 = destTelefone2;
     }
 
@@ -715,7 +715,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @return destTelefone3
      */
-    public org.apache.axis.types.NonNegativeInteger getDestTelefone3() {
+    public Integer getDestTelefone3() {
         return destTelefone3;
     }
 
@@ -725,7 +725,7 @@ public class Encomenda  implements java.io.Serializable {
      * 
      * @param destTelefone3
      */
-    public void setDestTelefone3(org.apache.axis.types.NonNegativeInteger destTelefone3) {
+    public void setDestTelefone3(Integer destTelefone3) {
         this.destTelefone3 = destTelefone3;
     }
 

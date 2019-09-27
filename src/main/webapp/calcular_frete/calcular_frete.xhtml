@@ -29,16 +29,31 @@
 				        </p:selectOneMenu>
 				        
 				        <p:outputLabel for="cepDestino" value="Cep Destino " />
-	        			<p:inputText id="cepDestino" value="#{calcularFreteController.calcularFreteBean.cepDestino}" required="true" requiredMessage="Informe o cep destino"/>
+	        			<p:inputText id="cepDestino" 
+	        						 value="#{calcularFreteController.calcularFreteBean.cepDestino}" 
+	        						 required="true" 
+	        						 maxlength="8"
+	        						 requiredMessage="Informe o cep destino">
+	        						  <p:keyFilter regEx="/[0-9_]/i" />
+	        			</p:inputText>			 
+	        						 
 	        			
 	        			<p:outputLabel for="peso" value="Peso " />
-	        			<p:inputText id="peso" value="#{calcularFreteController.calcularFreteBean.peso}" required="true" requiredMessage="Informe o Peso"/>
+	        			<p:inputText id="peso" 
+	        						 value="#{calcularFreteController.calcularFreteBean.peso}" 
+	        						 required="true" 
+	        						 requiredMessage="Informe o Peso"/>
 				        
 				        <p:outputLabel for="valorDeclarado" value="Valor Declarado " />
-	        			<p:inputText id="valorDeclarado" value="#{calcularFreteController.calcularFreteBean.valorDeclarado}" required="true" requiredMessage="Informe o valor declarado"/>
+	        			<p:inputText id="valorDeclarado" 
+	        						 value="#{calcularFreteController.calcularFreteBean.valorDeclarado}" 
+	        						 required="true" 
+	        						 requiredMessage="Informe o valor declarado"/>
 				        
 				        <p:outputLabel for="tipoEntrega" value="Tipo de Entrega " />
-						<p:selectOneMenu id="tipoEntrega" value="#{calcularFreteController.calcularFreteBean.tipoEntrega}" requiredMessage="Informe o tipo de Entrega" required="true">
+						<p:selectOneMenu id="tipoEntrega" 
+									     value="#{calcularFreteController.calcularFreteBean.tipoEntrega}" 
+									     requiredMessage="Informe o tipo de Entrega" required="true">
 				         	<f:selectItem itemLabel="Selecione" />
 				            <f:selectItem itemLabel="Entrega Normal" itemValue="0" />
 				            <f:selectItem itemLabel="GoBack" itemValue="1" />

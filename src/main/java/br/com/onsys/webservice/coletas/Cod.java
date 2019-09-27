@@ -10,7 +10,7 @@ package br.com.onsys.webservice.coletas;
 public class Cod  implements java.io.Serializable {
     private java.lang.String formaPagto;
 
-    private org.apache.axis.types.NonNegativeInteger parcelas;
+    private Integer parcelas;
 
     private java.math.BigDecimal valor;
  
@@ -19,7 +19,7 @@ public class Cod  implements java.io.Serializable {
 
     public Cod(
            java.lang.String formaPagto,
-           org.apache.axis.types.NonNegativeInteger parcelas,
+           Integer parcelas,
            java.math.BigDecimal valor) {
            this.formaPagto = formaPagto;
            this.parcelas = parcelas;
@@ -52,7 +52,7 @@ public class Cod  implements java.io.Serializable {
      * 
      * @return parcelas
      */
-    public org.apache.axis.types.NonNegativeInteger getParcelas() {
+    public Integer getParcelas() {
         return parcelas;
     }
 
@@ -62,7 +62,7 @@ public class Cod  implements java.io.Serializable {
      * 
      * @param parcelas
      */
-    public void setParcelas(org.apache.axis.types.NonNegativeInteger parcelas) {
+    public void setParcelas(Integer parcelas) {
         this.parcelas = parcelas;
     }
 

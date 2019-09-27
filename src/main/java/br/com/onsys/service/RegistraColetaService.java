@@ -9,7 +9,6 @@ import br.com.onsys.service.util.WebServiceUtil;
 import br.com.onsys.webservice.coletas.RegistraColetaRequest;
 import br.com.onsys.webservice.coletas.RegistraColetaResponse;
 import br.com.onsys.webservice.coletas.Encomenda;
-import br.com.onsys.webservice.coletas.NF;
 import br.com.onsys.webservice.coletas.NFe;
 
 @Service
@@ -19,26 +18,7 @@ public class RegistraColetaService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public RegistraColetaResponse registraColeta(RegistraColetaRequest registraColetaRequest) throws Exception {
-		
-		
-		/*
-		String request = "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:RegistraColeta\" xmlns:soapenc=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
-				"   <soapenv:Header/>\n" + 
-				"   <soapenv:Body>\n" + 
-				"      <urn:RegistraColeta soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
-				"         <RegistraColetaRequest xsi:type=\"web:RegistraColetaRequest\" xmlns:web=\"http://edi.totalexpress.com.br/soap/webservice_v24.total\">\n" + 
-				"            <!--You may enter the following 2 items in any order-->\n" + 
-				"            <CodRemessa xsi:type=\"xsd:string\">"+codRemessa+"</CodRemessa>\n" + 
-				"            <Encomendas xsi:type=\"web:Encomendas\" soapenc:arrayType=\"web:Encomenda[]\"/>\n" + 
-				"         </RegistraColetaRequest>\n" + 
-				"      </urn:RegistraColeta>\n" + 
-				"   </soapenv:Body>\n" + 
-				"</soapenv:Envelope>";
-		
-		 */
 	
-	
-		
 		String codRemessa = registraColetaRequest.getCodRemessa() == null ? "" : registraColetaRequest.getCodRemessa();
 				 
 		String request = "<SOAP-ENV:Envelope\n" + 

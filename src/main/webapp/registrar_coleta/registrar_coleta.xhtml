@@ -20,20 +20,297 @@
 				<div class="ui-fluid">
 	       			<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">		
 							
-							  <p:outputLabel for="cepDestino" value="Cep Destino " />
-	        			<p:inputText id="cepDestino" value="#{calcularFreteController.calcularFreteBean.cepDestino}" required="true" requiredMessage="Informe o cep destino"/>
-							
+						<p:outputLabel for="codRemessa" value="Cód Remessa " />
+	        			<p:inputText id="codRemessa" value="#{registrarColetaController.registraColetaRequest.codRemessa}" />
+	        				
 					</p:panelGrid>   
 					
-				</div>
+					<p:fieldset legend=".:: Encomendas ::.">
+						<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">		
+							
+						
+							<p:outputLabel for="tipoServico" value="Tipo de Serviço:" />
+					        <p:selectOneMenu id="tipoServico" 
+					        				 value="#{registrarColetaController.encomenda.tipoServico}" 
+					        				 requiredMessage="Informe o tipo de Serviço" 
+					        				 required="true">
+					         	<f:selectItem itemLabel="Selecione" />
+					            <f:selectItem itemLabel="Serviço Expresso" itemValue="1" />
+					            <f:selectItem itemLabel="Serviço Especial" itemValue="2" />
+					            <f:selectItem itemLabel="Standard com Transferência Rodoviária" itemValue="3" />
+					            <f:selectItem itemLabel="Entrega Fácil" itemValue="4" />
+					            <f:selectItem itemLabel="Premium" itemValue="5" />
+					            <f:selectItem itemLabel="Standard" itemValue="6" />
+					            <f:selectItem itemLabel="Super Expresso" itemValue="7" />
+					            
+					            <p:ajax event="change" update="@form" />
+					            
+					        </p:selectOneMenu>
+						
+							<p:outputLabel rendered="#{registrarColetaController.encomenda.tipoServico eq 4}" 
+									       for="tipoServicoTipo" value="CNPJ Para Entrega Fácil " />
+		        			<p:inputText rendered="#{registrarColetaController.encomenda.tipoServico eq 4}" 
+		        					     id="tipoServicoTipo" 
+		        					     value="#{registrarColetaController.encomenda.CNPJ}" />
+						
+							<p:outputLabel for="tipoEntregaEncomenda" value="Tipo de Entrega " />
+							<p:selectOneMenu id="tipoEntregaEncomenda" value="#{registrarColetaController.encomenda.tipoEntrega}">
+					         	<f:selectItem itemLabel="Selecione" />
+					            <f:selectItem itemLabel="Entrega Normal" itemValue="0" />
+					            <f:selectItem itemLabel="GoBack" itemValue="1" />
+					            <f:selectItem itemLabel="RMA" itemValue="2" />
+					        </p:selectOneMenu>
+					        
+					        <p:outputLabel for="peso" value="Peso " />
+	        				<p:inputText id="peso" 
+	        						 value="#{registrarColetaController.encomenda.peso}" />	
+							
+							<p:outputLabel for="volumes" value="Volumes " />
+	        				<p:inputText id="volumes" 
+	        							requiredMessage="Informe os volumes"
+					        			required="true"
+	        						 	value="#{registrarColetaController.encomenda.volumes}" />	
+							
+							<p:outputLabel for="condFrete" value="Condição do Frete " />
+	        				<p:inputText id="condFrete" 
+	        							requiredMessage="Informe a condição do frete"
+					        			required="true"
+	        						 	value="#{registrarColetaController.encomenda.condFrete}" />	
+							
+							<p:outputLabel for="pedido" value="Pedido " />
+	        				<p:inputText id="pedido" 
+	        							requiredMessage="Informe o pedido"
+					        			required="true"
+	        						 	value="#{registrarColetaController.encomenda.pedido}" />	
+	        						 	
+	        				<p:outputLabel for="idCliente" value="Código Cliente " />
+	        				<p:inputText id="idCliente" 
+	        							requiredMessage="Informe o pedido"
+					        			required="true"
+	        						 	value="#{registrarColetaController.encomenda.idCliente}" />
+	        						 	
+	        				<p:outputLabel for="natureza" value="Natureza" />
+	        				<p:inputText id="natureza" 
+	        							requiredMessage="Informe a Natureza"
+					        			required="true"
+	        						 	value="#{registrarColetaController.encomenda.natureza}" />
+	        						 	
+	        				<p:outputLabel for="tipoVolumes" value="Tipo Volumes " />
+	        				<p:inputText id="tipoVolumes" 	        							
+	        						 	value="#{registrarColetaController.encomenda.tipoVolumes}" />		 	
+	        				
+	        				<p:outputLabel for="isencaoIcms" value="Insenção ICMS " />
+					        <p:selectOneRadio id="isencaoIcms" value="#{registrarColetaController.encomenda.isencaoIcms}">
+					            <f:selectItem itemLabel="Não" itemValue="0" />
+					            <f:selectItem itemLabel="Sim" itemValue="1" />
+					        </p:selectOneRadio>
+					        
+					       <p:outputLabel for="infoColeta" value="Material a ser coletado" />					        
+					       <p:inputTextarea id="infoColeta" 
+					       					value="#{registrarColetaController.encomenda.infoColeta}" 
+					       					rows="10" 
+					       					cols="50" 
+					       					maxlength="255" 
+					       					autoResize="false"    />
+					        
+	        						 	
+						</p:panelGrid>
+						
+					</p:fieldset>
+				</div>.
 				
-				<p:commandButton value="Registrar Coleta" 
-								 onclick="PF('statusDialogTemplate').show();" 
-								 action="#{registrarColetaController.registraColeta}" 
-								 />
+				<p:fieldset legend=".:: Destinatário ::.">
+					<div class="ui-fluid">
+	       				<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+	       				
+	       					
+	       					<p:outputLabel for="destNome" value="Nome " />
+	        				<p:inputText id="destNome" maxlength="40"
+	        							requiredMessage="Informe o Nome do destinatário"
+					        			required="true"
+	        						 	value="#{registrarColetaController.encomenda.destNome}" />	
+	        				
+	        				<p:outputLabel for="destCpfCnpj" value="CPF ou CNPJ " />
+	        				<p:inputText id="destCpfCnpj" 
+	        							maxlength="14"
+	        							requiredMessage="Informe o Nome do destinatário"
+					        			required="true"
+	        						 	value="#{registrarColetaController.encomenda.destCpfCnpj}" />			 	
+	        				
+	        				<p:outputLabel for="destIe" value="Inscrição Estadual " />
+	        				<p:inputText id="destIe" 
+	        							maxlength="14"	        							
+	        						 	value="#{registrarColetaController.encomenda.destIe}" />		 	
+	        				
+	        				<p:outputLabel for="destEnd" value="Endereço de entrega " />
+	        				<p:inputText id="destEnd" 
+	        							maxlength="80"	
+	        							requiredMessage="Informe a Endereço de entrega"
+					        			required="true"        							
+	        						 	value="#{registrarColetaController.encomenda.destEnd}" />		
+	        				
+	        				<p:outputLabel for="destEndNum" value="Número o Endereço de entrega " />
+	        				<p:inputText id="destEndNum" 
+	        							requiredMessage="Informe o Número do Endereço de entrega"
+					        			required="true" 
+	        							maxlength="10"	        							
+	        						 	value="#{registrarColetaController.encomenda.destEndNum}" />		 	
+	       					
+	       					<p:outputLabel for="destCompl" value="Complemento do endereço de entrega " />
+	        				<p:inputText id="destCompl" 	        							
+	        							maxlength="10"	        							
+	        						 	value="#{registrarColetaController.encomenda.destCompl}" />
+	       					
+	       					<p:outputLabel for="destPontoRef" value="Ponto de referência para entrega" />					        
+					        <p:inputTextarea id="destPontoRef" 
+					       					value="#{registrarColetaController.encomenda.destPontoRef}" 
+					       					rows="10" 
+					       					cols="50" 
+					       					maxlength="255" 
+					       					autoResize="false" />
+					       	
+					       	<p:outputLabel for="destBairro" value="Bairro " />
+	        				<p:inputText id="destBairro" 
+	        							maxlength="40"	
+	        							requiredMessage="Informe o Bairro"
+					        			required="true"        							
+	        						 	value="#{registrarColetaController.encomenda.destBairro}" />					
+					       					
+	       					<p:outputLabel for="destCidade" value="Cidade " />
+	        				<p:inputText id="destCidade" 
+	        							maxlength="40"	
+	        							requiredMessage="Informe a Cidade"
+					        			required="true"        							
+	        						 	value="#{registrarColetaController.encomenda.destCidade}" />
+	       				
+	       					<p:outputLabel for="destEstado" value="Estado " />
+	        				<p:inputText id="destEstado" 
+	        							maxlength="2"	
+	        							requiredMessage="Informe a Cidade"
+					        			required="true"        							
+	        						 	value="#{registrarColetaController.encomenda.destEstado}" />
+	        						 	
+	        				<p:outputLabel for="destPais" value="País " />
+	        				<p:inputText id="destPais" 
+	        							maxlength="20"	
+	        							requiredMessage="Informe a Cidade"
+					        			required="true"        							
+	        						 	value="#{registrarColetaController.encomenda.destPais}" />
+	        				
+	        				<p:outputLabel for="destCep" value="Cep " />
+	        				<p:inputText id="destCep" 
+	        							maxlength="8"	
+	        							requiredMessage="Informe o Cep"
+					        			required="true"        							
+	        						 	value="#{registrarColetaController.encomenda.destCep}" >
+	        						 	
+	        						 	<p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        				</p:inputText>
+	        						 	
+	        				<p:outputLabel for="destEmail" value="Email " />
+	        				<p:inputText id="destEmail" value="#{registrarColetaController.encomenda.destEmail}" maxlength="60"	/>
+					        			
+	        				<p:outputLabel for="destDdd" value="DDD " />
+	        				<p:inputText id="destDdd" 
+	        							maxlength="3"	        							       							
+	        						 	value="#{registrarColetaController.encomenda.destDdd}" >
+	        						 	
+	        						 	<p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        				</p:inputText>	
+	        					 	
+	        				<p:outputLabel for="destTelefone1" value="Telefone " />
+	        				<p:inputText id="destTelefone1" 
+	        							maxlength="12"	        							       							
+	        						 	value="#{registrarColetaController.encomenda.destTelefone1}" >
+	        						 	
+	        						 	<p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        				</p:inputText>		
+	        					
+	        				<p:outputLabel for="destTelefone2" value="Telefone2 " />
+	        				<p:inputText id="destTelefone2" 
+	        							maxlength="12"	        							       							
+	        						 	value="#{registrarColetaController.encomenda.destTelefone2}" >
+	        						 	
+	        						 	<p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        				</p:inputText>		 	
+	        						 	
+	        				<p:outputLabel for="destTelefone3" value="Telefone3 " />
+	        				<p:inputText id="destTelefone3" 
+	        							maxlength="12"	        							       							
+	        						 	value="#{registrarColetaController.encomenda.destTelefone3}" >
+	        						 	
+	        						 	<p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        				</p:inputText>		 	
+	       				</p:panelGrid>
+	       			</div>
+				</p:fieldset>
+				<br/>
+				<p:fieldset legend=".:: Dados Adicionais ::.">
+					<div class="ui-fluid">
+	       				<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+	       				
+       						<p:outputLabel for="campanha" value="Nome da Campanha " />
+        					<p:inputText id="campanha" value="#{registrarColetaController.encomenda.campanha}" maxlength="10" />
+       				
+		       				<p:outputLabel for="formaPagto" value="Forma de pagamento do COD " />
+		        			<p:inputText id="formaPagto" value="#{registrarColetaController.encomenda.cod.formaPagto}" maxlength="2" />
+		       						
+		       				<p:outputLabel for="parcelas" value="Número de parcelas" />
+		        			<p:inputText id="parcelas" value="#{registrarColetaController.encomenda.cod.parcelas}" maxlength="2">
+		        				<p:keyFilter regEx="/[0-9_]/i" />
+		        			</p:inputText>
+		        			
+		        			<p:outputLabel for="valor" value="Valor total a ser coletado" />
+		        			<p:inputNumber id="valor" 
+		        						  value="#{registrarColetaController.encomenda.cod.valor}" 
+		        						  decimalPlaces="2" decimalSeparator=","
+		        						   maxValue="99999.99"
+		        						    /> 
+		        			
+	       					<p:outputLabel for="agData" value="Data da entrega Agendada" />
+        					<p:calendar id="agData" value="#{registrarColetaController.encomenda.agendamento.agData}" showTodayButton="true" pattern="yyyy-MM-dd" />
+	       					
+	       					
+	       					<p:outputLabel for="agPeriodo1" value="Período da entrega" />
+		        			<p:inputText id="agPeriodo1" value="#{registrarColetaController.encomenda.agendamento.agPeriodo1}" maxlength="1" />
+		        			
+		        			
+							<p:outputLabel for="agPeriodo2" value="Segundo período de entrega" />
+		        			<p:inputText id="agPeriodo2" value="#{registrarColetaController.encomenda.agendamento.agPeriodo2}" maxlength="1" />
+	       					
+	       				</p:panelGrid>
+	       			</div>
+	       			
+	       			 <p:commandButton id="botaoAdicionarEncomenda" value="Add" update="idDataTableEmcomendas @form" action="#{registrarColetaController.reinit}" >
+                			<p:collector value="#{registrarColetaController.encomenda}" 
+                						 addTo="#{registrarColetaController.registraColetaRequest.listaEncomendas}" 
+                						 unique="true"/>
+            		</p:commandButton>
+				</p:fieldset>	
+				
+				<br/>
+				
+				<p:fieldset legend=".:: Total Registro das Coleta(s)::.">
+					<p:dataTable id="idDataTableEmcomendas" var="emcomenda" value="#{registrarColetaController.registraColetaRequest.listaEncomendas}" reflow="true">
+						<p:column headerText="Pedido">
+	        					<h:outputText value="#{emcomenda.pedido}" />
+	   					</p:column>
+					</p:dataTable>
+				
+				</p:fieldset>	
 				
 			</h:form>
 		</p:panel>
+		
+			<p:commandButton value="Registrar Coleta" 
+							 onclick="PF('statusDialogTemplate').show();" 
+							 action="#{registrarColetaController.registraColeta}" 
+								 />
 	
 	</ui:define>
 </ui:composition>

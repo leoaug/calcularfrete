@@ -50,40 +50,6 @@ public class CalcularFreteService implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public void calcularFrete(CalcularFreteRequest calcularFreteRequestTela) {
-		
-		try {
-					
-			CalcularFreteResponse response = new Webservice_calculo_freteTotalBindingStub().calcularFrete(calcularFreteRequestTela);
-			
-			System.out.println(response.getDadosFrete().getPrazo()); 
-		} catch (AxisFault e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
-	public void obterTracking() {
-		
-		String request = "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:ObterTracking\">\n" + 
-				"   <soapenv:Header/>\n" + 
-				"   <soapenv:Body>\n" + 
-				"      <urn:ObterTracking soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">\n" + 
-				"         <ObterTrackingRequest xsi:type=\"web:ObterTrackingRequest\" xmlns:web=\"http://edi.totalexpress.com.br/soap/webservice_v24.total\">\n" + 
-				"            <!--Optional:-->\n" + 
-				"            <DataConsulta xsi:type=\"xsd:date\">?</DataConsulta>\n" + 
-				"         </ObterTrackingRequest>\n" + 
-				"      </urn:ObterTracking>\n" + 
-				"   </soapenv:Body>\n" + 
-				"</soapenv:Envelope>";
-		
-	}
-	
-	
 	public CalcularFreteResponse calcularFreteRequest(CalcularFreteBean calcularFreteBean) throws Exception {
 		try {
 					
@@ -138,7 +104,5 @@ public class CalcularFreteService implements Serializable {
 		
 	}
 
-	
-	
 
 }

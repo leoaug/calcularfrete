@@ -42,13 +42,11 @@ public class CalcularFreteController implements Serializable {
 	public void calcularFrete() {
 				
 		try {										
-			setCalcularFreteResponse(calcularFreteService.calcularFreteRequest(getCalcularFreteBean()));
-	
+			setCalcularFreteResponse(calcularFreteService.calcularFreteRequest(getCalcularFreteBean()));	
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Frete Calculado."));
 	        
-			//calcularFreteService.registraColeta();
 		} catch (Exception e) {
-	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Erro ao registrar coleta"));
+	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Erro ao registrar o frete"));
 
 			e.printStackTrace();
 		}
