@@ -36,7 +36,7 @@
 	</servlet-mapping>
 	
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>calcular_frete/calcular_frete.xhtml</welcome-file>
 	</welcome-file-list>
 
 

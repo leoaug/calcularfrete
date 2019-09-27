@@ -8,10 +8,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.apache.axis.management.Registrar;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.onsys.bean.CalcularFreteBean;
 import br.com.onsys.service.CalcularFreteService;
+import br.com.onsys.service.RegistraColetaService;
 import br.com.onsys.webservice.CalcularFreteResponse;
 
 
@@ -24,6 +26,8 @@ public class CalcularFreteController implements Serializable {
 
 	@Autowired
 	private CalcularFreteService calcularFreteService;
+	
+	
 	
 	private CalcularFreteBean calcularFreteBean;
 	
@@ -39,8 +43,9 @@ public class CalcularFreteController implements Serializable {
 				
 		try {										
 			setCalcularFreteResponse(calcularFreteService.calcularFreteRequest(getCalcularFreteBean()));
-	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Frete Calculado."));
-
+	
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Frete Calculado."));
+	        
 			//calcularFreteService.registraColeta();
 		} catch (Exception e) {
 	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Erro ao registrar coleta"));

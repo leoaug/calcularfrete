@@ -6,10 +6,9 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://java.sun.com/jsf/core">
-
-
-	<h:head>
-	 	<title>Calcular Frete</title>
+    
+    <h:head>
+	 	<title>OnSys</title>
 		<meta name="generator" content="JSF" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,9 +19,8 @@
 		<meta http-equiv="cache-control" content="post-check=0, pre-check=0" />
 		<meta http-equiv="expires" content="0" />
 		<meta http-equiv="pragma" content="no-cache" />
-
-	    
-	    <style>
+		
+		 <style>
 	    	.ui-selectonemenu {
     			padding-right: 0 !important;
 			}
@@ -42,125 +40,45 @@
 			.oneMenuBoxResising .ui-selectonemenu {
 			   box-sizing: border-box;
 			}
-			
-			
+					
 	    
 	    </style>
-			
 	</h:head>
-
-
-<h:body>
-
-	 <p:ajaxStatus onstart="PF('statusDialogTemplate').show();" onsuccess="PF('statusDialogTemplate').hide();"/>
+	
+	<h:body>
+	
+		
+	   <p:ajaxStatus onstart="PF('statusDialogTemplate').show();" onsuccess="PF('statusDialogTemplate').hide();"/>
 					        
 					    	
-			<p:dialog  style="opacity:0.7 !important; filter:alpha(opacity=80) !important;" styleClass="styleDialogTemplate" 
-	    			   modal="true" 
-	    			   appendTo="@(body)" 
-	    			   showHeader="false" 
-	    			   widgetVar="statusDialogTemplate"  
-	    			   draggable="false" 
-	    			   closable="false" 
-	    			   width="225">
-	   			<p:panelGrid styleClass="ui-noborder">
-	   				<p:row>
-	   			 		<p:column>
-	   			 			<h:outputText value="Carregando.." />
-	   			 		</p:column>	
-	   			 	
-	   				 	<p:column>	
-	   				 		<p:graphicImage value="./ajax-loader2.gif" />
-	   				 	</p:column>
-	   				 </p:row>	  			
-	   			</p:panelGrid>
-			</p:dialog>
-
-
-	<p:panel header=".:: Calcular Frete ::.">
-		<h:form>	
-			<p:growl showDetail="true"/>
-			<div class="ui-fluid">
-       			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">		
-						<p:outputLabel for="tipoServico" value="Tipo de Serviço:" />
-				        <p:selectOneMenu id="tipoServico" styleClass="oneMenuBoxResising" value="#{calcularFreteController.calcularFreteBean.tipoServico}" requiredMessage="Informe o tipo de Serviço" required="true">
-				         	<f:selectItem itemLabel="Selecione" />
-				            <f:selectItem itemLabel="Expresso" itemValue="EXP" />
-				            <f:selectItem itemLabel="Especial" itemValue="ESP" />
-				            <f:selectItem itemLabel="Premium" itemValue="PRM" />
-				            <f:selectItem itemLabel="Standard" itemValue="STD" />
-				        </p:selectOneMenu>
-				        
-				        <p:outputLabel for="cepDestino" value="Cep Destino " />
-	        			<p:inputText id="cepDestino" value="#{calcularFreteController.calcularFreteBean.cepDestino}" required="true" requiredMessage="Informe o cep destino"/>
-	        			
-	        			<p:outputLabel for="peso" value="Peso " />
-	        			<p:inputText id="peso" value="#{calcularFreteController.calcularFreteBean.peso}" required="true" requiredMessage="Informe o Peso"/>
-				        
-				        <p:outputLabel for="valorDeclarado" value="Valor Declarado " />
-	        			<p:inputText id="valorDeclarado" value="#{calcularFreteController.calcularFreteBean.valorDeclarado}" required="true" requiredMessage="Informe o valor declarado"/>
-				        
-				        <p:outputLabel for="tipoEntrega" value="Tipo de Entrega " />
-						<p:selectOneMenu id="tipoEntrega" value="#{calcularFreteController.calcularFreteBean.tipoEntrega}" requiredMessage="Informe o tipo de Entrega" required="true">
-				         	<f:selectItem itemLabel="Selecione" />
-				            <f:selectItem itemLabel="Entrega Normal" itemValue="0" />
-				            <f:selectItem itemLabel="GoBack" itemValue="1" />
-				            <f:selectItem itemLabel="RMA" itemValue="2" />
-				        </p:selectOneMenu>	
-				</p:panelGrid>   
-				<p:panelGrid columns="1" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">						     
-			        <p:selectBooleanCheckbox value="#{calcularFreteController.calcularFreteBean.servicoCOD}" itemLabel="Existe Código?"/>
-			    </p:panelGrid>
-			    <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">						     
-			        
-			        <p:outputLabel for="altura" value="Altura " />
-        			<p:inputText id="altura" value="#{calcularFreteController.calcularFreteBean.altura}" />
-			        	
-			        <p:outputLabel for="largura" value="Largura " />
-        			<p:inputText id="largura" value="#{calcularFreteController.calcularFreteBean.largura}" />	 
-        			
-        			<p:outputLabel for="profundidade" value="Profundidade " />
-        			<p:inputText id="profundidade" value="#{calcularFreteController.calcularFreteBean.profundidade}" />	       
-				</p:panelGrid>
-			</div>
-			
-			<p:commandButton value="Calcular Frete" 
-							 onclick="PF('statusDialogTemplate').show();" 
-							 action="#{calcularFreteController.calcularFrete}" 
-							 update="@form,idFormResultado"/>
-			
-		</h:form>
-	</p:panel>
-	
-	<br/>
-	
-	<p:panel header=".:: Resultado ::.">
-		<h:form id="idFormResultado" prependId="false">
+		<p:dialog  style="opacity:0.7 !important; filter:alpha(opacity=80) !important;" styleClass="styleDialogTemplate" 
+    			   modal="true" 
+    			   appendTo="@(body)" 
+    			   showHeader="false" 
+    			   widgetVar="statusDialogTemplate"  
+    			   draggable="false" 
+    			   closable="false" 
+    			   width="225">
+   			<p:panelGrid styleClass="ui-noborder">
+   				<p:row>
+   			 		<p:column>
+   			 			<h:outputText value="Carregando.." />
+   			 		</p:column>	
+   			 	
+   				 	<p:column>	
+   				 		<p:graphicImage value="/img/ajax-loader2.gif" />
+   				 	</p:column>
+   				 </p:row>	  			
+   			</p:panelGrid>
+		</p:dialog>
 		
-			<h:outputText value="Código de Processamento: " style="font-weight: bolder" />
-			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue() eq 0}" 
-					value="Cliente não autorizado a realizar o procedimento"/>
-			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue() eq 1}" 
-					value="Processado com sucesso: "/>
-			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue() eq 2}" 
-					value="Sistema indisponível no momento: "/>
-			<h:outputText rendered="#{calcularFreteController.calcularFreteResponse.codigoProc.intValue() eq 3}" 
-					value="Sistema indisponível no momento: "/>
-			<br/>
-			<h:outputText value="Erros da Transmissão: " style="font-weight: bolder" />
-			<h:outputText value="#{calcularFreteController.calcularFreteResponse.erroConsultaFrete}"/>
-			
-			<br/>
-			<h:outputText value="Prazo: " style="font-weight: bolder" />
-			<h:outputText value="#{calcularFreteController.calcularFreteResponse.dadosFrete.prazo}"/>
-			
-			<br/>
-			<h:outputText value="Valor Serviço: " style="font-weight: bolder" />
-			<h:outputText value="#{calcularFreteController.calcularFreteResponse.dadosFrete.valorServico}"/>
-		
-		</h:form>
+		<p:tabMenu>
+		    <p:menuitem value=".:: Calcular Frete ::." outcome="/calcular_frete/calcular_frete.xhtml" icon="fa fa-file" />		       
+		    <p:menuitem value=".:: Registrar Coleta ::." outcome="/registrar_coleta/registrar_coleta.xhtml" icon="fa fa-file" />		      	   
+		</p:tabMenu>
 	
-	</p:panel>
+		<ui:insert name="content" />
 	
-</h:body>
-</html>
+	</h:body>
+    
+</html>    

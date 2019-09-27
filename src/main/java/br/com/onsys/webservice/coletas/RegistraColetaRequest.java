@@ -6,11 +6,18 @@
  */
 
 package br.com.onsys.webservice.coletas;
- 
+
+import java.util.List;
+
 public class RegistraColetaRequest  implements java.io.Serializable {
-    private java.lang.String codRemessa;
+    
+	private static final long serialVersionUID = 1L;
+
+	private java.lang.String codRemessa;
 
     private br.com.onsys.webservice.coletas.Encomenda[] encomendas;
+    
+    private List <Encomenda> listaEncomendas;
 
     public RegistraColetaRequest() {
     }
@@ -22,8 +29,18 @@ public class RegistraColetaRequest  implements java.io.Serializable {
            this.encomendas = encomendas;
     }
 
+    
+    
 
-    /**
+    public List<Encomenda> getListaEncomendas() {
+		return listaEncomendas;
+	}
+
+	public void setListaEncomendas(List<Encomenda> listaEncomendas) {
+		this.listaEncomendas = listaEncomendas;
+	}
+
+	/**
      * Gets the codRemessa value for this RegistraColetaRequest.
      * 
      * @return codRemessa

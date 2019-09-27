@@ -6,7 +6,9 @@
  */
 
 package br.com.onsys.webservice.coletas;
- 
+
+import java.util.List;
+
 public class Encomenda  implements java.io.Serializable {
     private org.apache.axis.types.NonNegativeInteger tipoServico;
 
@@ -73,6 +75,8 @@ public class Encomenda  implements java.io.Serializable {
     private br.com.onsys.webservice.coletas.NF[] docFiscalNF;
 
     private br.com.onsys.webservice.coletas.NFe[] docFiscalNFe;
+    
+    private List <NFe> listaDocFiscalNFe;
 
     private br.com.onsys.webservice.coletas.DocFiscalOutroTipo[] docFiscalO;
 
@@ -154,8 +158,19 @@ public class Encomenda  implements java.io.Serializable {
            this.CNPJ = CNPJ;
     }
 
+    
 
-    /**
+    
+
+	public List<NFe> getListaDocFiscalNFe() {
+		return listaDocFiscalNFe;
+	}
+
+	public void setListaDocFiscalNFe(List<NFe> listaDocFiscalNFe) {
+		this.listaDocFiscalNFe = listaDocFiscalNFe;
+	}
+
+	/**
      * Gets the tipoServico value for this Encomenda.
      * 
      * @return tipoServico

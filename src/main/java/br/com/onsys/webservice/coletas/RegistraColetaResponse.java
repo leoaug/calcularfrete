@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlAccessType;
  
+
 @XmlRootElement(name = "RegistraColetaResponse", namespace = "urn:RegistraColeta")
 @XmlType(name = "RegistraColetaResponse", namespace = "tns:RegistraColetaResponse",
 propOrder = {"codigoProc","itensProcessados","itensRejeitados"})
