@@ -13,7 +13,7 @@ public class Encomenda  implements java.io.Serializable {
     private Integer tipoServico;
     
     //campo para guardar o index do objeto
-    private Integer index;
+    private Integer index; 
 
     private Integer tipoEntrega;
 
