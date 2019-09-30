@@ -11,6 +11,9 @@ import java.util.List;
 
 public class Encomenda  implements java.io.Serializable {
     private Integer tipoServico;
+    
+    //campo para guardar o index do objeto
+    private Integer index;
 
     private Integer tipoEntrega;
 
@@ -161,6 +164,14 @@ public class Encomenda  implements java.io.Serializable {
     
 
     
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
 
 	public List<NFe> getListaDocFiscalNFe() {
 		return listaDocFiscalNFe;

@@ -3,6 +3,7 @@ package br.com.onsys.controller;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -19,6 +20,7 @@ import br.com.onsys.webservice.coletas.Cod;
 import br.com.onsys.webservice.coletas.Encomenda;
 import br.com.onsys.webservice.coletas.RegistraColetaRequest;
 import br.com.onsys.webservice.coletas.RegistraColetaResponse;
+import br.com.onsys.webservice.coletas.NFe;
 
 @Named
 @ViewScoped
@@ -36,6 +38,12 @@ public class RegistrarColetaController implements Serializable {
 		
 	private Encomenda encomenda;
 	
+	private Encomenda encomendaDialog;
+	
+	private NFe nfe;
+	
+	private Integer index;
+	
 	@PostConstruct
 	public void onInit() {
 		
@@ -43,15 +51,25 @@ public class RegistrarColetaController implements Serializable {
 		
 		getRegistraColetaRequest().setListaEncomendas(new ArrayList<Encomenda>());
 		
-		setEncomenda(new Encomenda());
 		
-		getEncomenda().setAgendamento(new Agendamento());
-		getEncomenda().setCod(new Cod());
-		getEncomenda().setIsencaoIcms(0);
+		setEncomendaDialog(new Encomenda());
+		
+		setNfe(new NFe());
+		
+		this.initEncomenda();
+		
+	
 	}
 	
+	private void initEncomenda() {
+		setEncomenda(new Encomenda());
+		getEncomenda().setAgendamento(new Agendamento());
+		getEncomenda().setCod(new Cod());
+		getEncomenda().setIsencaoIcms(0);		
+	}
+
 	public String reinit() {
-		setEncomenda(new Encomenda());         
+		this.initEncomenda();
         return null;
     }
 	public void adicionarEncomenda() {
@@ -60,7 +78,10 @@ public class RegistrarColetaController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
         	getRegistraColetaRequest().getListaEncomendas().add(getEncomenda());
-        	setEncomenda(new Encomenda());
+        	for(Encomenda enc : getRegistraColetaRequest().getListaEncomendas()) {
+        		enc.setListaDocFiscalNFe(new ArrayList<NFe>());
+        	}
+        	this.initEncomenda();
         }
     }
 	
@@ -76,6 +97,34 @@ public class RegistrarColetaController implements Serializable {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void resetarNfe() {
+		setNfe(new NFe());
+	}
+	
+	public void guardarIndexEncomedaLista(Encomenda encomenda) {
+		//getRegistraColetaRequest().getListaEncomendas().get(index);
+		//quadra o index do objeto para substituilo depois
+		//setIndex(index);
+		getEncomendaDialog().setIndex(getRegistraColetaRequest().getListaEncomendas().indexOf(encomenda));
+	}
+
+	public void cadastrarNfeNaEncomenda() {
+		if(getRegistraColetaRequest().getListaEncomendas().get(getEncomendaDialog().getIndex()).getListaDocFiscalNFe() == null) {
+			getRegistraColetaRequest().getListaEncomendas().get(getEncomendaDialog().getIndex()).setListaDocFiscalNFe(new ArrayList<NFe>());
+		}
+		getRegistraColetaRequest().getListaEncomendas().get(getEncomendaDialog().getIndex()).getListaDocFiscalNFe().add(getNfe());	
+		//getRegistraColetaRequest().getListaEncomendas().indexOf(o)
+		setNfe(new NFe());
+	}
+	
+	public Encomenda getEncomendaDialog() {
+		return encomendaDialog;
+	}
+
+	public void setEncomendaDialog(Encomenda encomendaDialog) {
+		this.encomendaDialog = encomendaDialog;
 	}
 
 	public RegistraColetaRequest getRegistraColetaRequest() {
@@ -101,6 +150,23 @@ public class RegistrarColetaController implements Serializable {
 	public void setEncomenda(Encomenda encomenda) {
 		this.encomenda = encomenda;
 	}
+
+	public NFe getNfe() {
+		return nfe;
+	}
+
+	public void setNfe(NFe nfe) {
+		this.nfe = nfe;
+	}
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+	
 	
 	
 

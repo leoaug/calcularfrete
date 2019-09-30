@@ -15,7 +15,7 @@
 
 	
 		<p:panel header=".:: Registrar Coleta ::.">
-			<h:form>	
+			<h:form prependId="false">	
 				<p:growl showDetail="true"/>
 				<div class="ui-fluid">
 	       			<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">		
@@ -26,7 +26,7 @@
 					</p:panelGrid>   
 					
 					<p:fieldset legend=".:: Encomendas ::.">
-						<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">		
+						<p:panelGrid  columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">		
 							
 						
 							<p:outputLabel for="tipoServico" value="Tipo de Serviço:" />
@@ -69,7 +69,11 @@
 	        				<p:inputText id="volumes" 
 	        							requiredMessage="Informe os volumes"
 					        			required="true"
-	        						 	value="#{registrarColetaController.encomenda.volumes}" />	
+	        						 	value="#{registrarColetaController.encomenda.volumes}" >
+	        						 	
+	        						 	<p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        				</p:inputText>	
 							
 							<p:outputLabel for="condFrete" value="Condição do Frete " />
 	        				<p:inputText id="condFrete" 
@@ -85,7 +89,7 @@
 	        						 	
 	        				<p:outputLabel for="idCliente" value="Código Cliente " />
 	        				<p:inputText id="idCliente" 
-	        							requiredMessage="Informe o pedido"
+	        							requiredMessage="Informe o código do cliente"
 					        			required="true"
 	        						 	value="#{registrarColetaController.encomenda.idCliente}" />
 	        						 	
@@ -266,10 +270,8 @@
 		        			</p:inputText>
 		        			
 		        			<p:outputLabel for="valor" value="Valor total a ser coletado" />
-		        			<p:inputNumber id="valor" 
-		        						  value="#{registrarColetaController.encomenda.cod.valor}" 
-		        						  decimalPlaces="2" decimalSeparator=","
-		        						   maxValue="99999.99"
+		        			<p:inputText id="valor" 
+		        						  value="#{registrarColetaController.encomenda.cod.valor}" 		        						
 		        						    /> 
 		        			
 	       					<p:outputLabel for="agData" value="Data da entrega Agendada" />
@@ -286,7 +288,7 @@
 	       				</p:panelGrid>
 	       			</div>
 	       			
-	       			 <p:commandButton id="botaoAdicionarEncomenda" value="Add" update="idDataTableEmcomendas @form" action="#{registrarColetaController.reinit}" >
+	       			 <p:commandButton id="botaoAdicionarEncomenda" value="Adicionar Encomenda" update="idDataTableEmcomendas @form" action="#{registrarColetaController.reinit}" >
                 			<p:collector value="#{registrarColetaController.encomenda}" 
                 						 addTo="#{registrarColetaController.registraColetaRequest.listaEncomendas}" 
                 						 unique="true"/>
@@ -295,10 +297,29 @@
 				
 				<br/>
 				
-				<p:fieldset legend=".:: Total Registro das Coleta(s)::.">
-					<p:dataTable id="idDataTableEmcomendas" var="emcomenda" value="#{registrarColetaController.registraColetaRequest.listaEncomendas}" reflow="true">
+				<p:fieldset  legend=".:: Total Registro das Coleta(s)::.">
+					<p:dataTable  id="idDataTableEmcomendas" var="encomenda" value="#{registrarColetaController.registraColetaRequest.listaEncomendas}" reflow="true">
 						<p:column headerText="Pedido">
-	        					<h:outputText value="#{emcomenda.pedido}" />
+	        					<h:outputText value="#{encomenda.pedido}" />
+	   					</p:column>
+	   					
+	   					<p:column headerText="Volumes">
+	        					<h:outputText value="#{encomenda.volumes}" />
+	   					</p:column>
+	   					
+	   					<p:column headerText="NFe(s)">
+	   						<ul>
+		        				<ui:repeat var="nfe" value="#{encomenda.listaDocFiscalNFe}">
+		        					<li>
+		        						<h:outputText value="#{nfe.nfeNumero}" /> 
+		        					</li>	
+		        				</ui:repeat>		
+	        				</ul>	
+	   					</p:column>
+	   					<p:column headerText="Registrar NFe(s)">
+	   						<p:commandButton value="Cadastar NFE" immediate="true"
+	   										 action="#{registrarColetaController.guardarIndexEncomedaLista(encomenda)}"	
+	   										 oncomplete="PF('widgetVarDialogNFE').show()"/>
 	   					</p:column>
 					</p:dataTable>
 				
@@ -306,6 +327,66 @@
 				
 			</h:form>
 		</p:panel>
+		
+		<p:dialog  widgetVar="widgetVarDialogNFE" header="Dados do FE" showEffect="clip" hideEffect="clip" modal="true" onShow="#{registrarColetaController.resetarNfe()}">
+			<h:form>
+				<div class="ui-fluid">
+	       			<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:outputLabel for="nfeNumero" value="Número da Nota Fiscal" />
+		        		<p:inputText id="nfeNumero" 
+		        					 requiredMessage="Informe o numero"
+					        		 required="true"   
+					        		 value="#{registrarColetaController.nfe.nfeNumero}" maxlength="9" />
+					        		 
+					    <p:outputLabel for="nfeSerie" value="Número de Série" />
+		        		<p:inputText id="nfeSerie" 
+		        					 requiredMessage="Informe a série"
+					        		 required="true"   
+					        		 value="#{registrarColetaController.nfe.nfeSerie}" maxlength="3" />
+					        		 
+					    <p:outputLabel for="nfeData" value="Data de emissão da Nota Fiscal" />
+        				<p:calendar id="nfeData" value="#{registrarColetaController.nfe.nfeData}" showTodayButton="true" pattern="yyyy-MM-dd" />  
+        				
+        				
+        				<p:outputLabel for="nfeValTotal" value="Valor total da Nota Fiscal " />
+	        			<p:inputText id="nfeValTotal" 
+	        						 maxlength="15"	        							       							
+	        						 value="#{registrarColetaController.nfe.nfeValTotal}" >
+	        						 	
+	        						 <p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        			</p:inputText>	
+        				 	
+        				<p:outputLabel for="nfeValProd" value="Valor total dos produtos " />
+	        			<p:inputText id="nfeValProd" 
+	        						 maxlength="15"	        							       							
+	        						 value="#{registrarColetaController.nfe.nfeValProd}" >
+	        						 	
+	        						 <p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        			</p:inputText>	 	
+        				 	
+        				<p:outputLabel for="nfeCfop" value="CFOP predominante " />
+	        			<p:inputText id="nfeCfop" 
+	        						 maxlength="4"	        							       							
+	        						 value="#{registrarColetaController.nfe.nfeCfop}" >
+	        						 	
+	        						 <p:keyFilter regEx="/[0-9_]/i" />
+	        						 	
+	        			</p:inputText> 		
+        				 		
+        				<p:outputLabel for="nfeChave" value="Chave de acesso" />
+		        		<p:inputText id="nfeChave" 
+		        					 requiredMessage="Informe a série"
+					        		 required="true"   
+					        		 value="#{registrarColetaController.nfe.nfeChave}" maxlength="44" /> 		
+        				 		 
+					        		 
+					</p:panelGrid>
+				</div>
+				<p:commandButton value="Adicionar NFE" action="#{registrarColetaController.cadastrarNfeNaEncomenda}" update="idDataTableEmcomendas @form"/>
+			</h:form>		
+		</p:dialog>
 		
 			<p:commandButton value="Registrar Coleta" 
 							 onclick="PF('statusDialogTemplate').show();" 

@@ -8,9 +8,13 @@
 package br.com.onsys.webservice.coletas;
  
 public class NFe  implements java.io.Serializable {
-    private org.apache.axis.types.NonNegativeInteger nfeNumero;
+   
+	
+	private static final long serialVersionUID = 1L;
 
-    private org.apache.axis.types.NonNegativeInteger nfeSerie;
+	private Integer nfeNumero;
+
+    private Integer nfeSerie;
 
     private java.util.Date nfeData;
 
@@ -18,7 +22,7 @@ public class NFe  implements java.io.Serializable {
 
     private java.math.BigDecimal nfeValProd;
 
-    private org.apache.axis.types.NonNegativeInteger nfeCfop;
+    private Integer nfeCfop;
 
     private java.lang.String nfeChave;
 
@@ -26,12 +30,12 @@ public class NFe  implements java.io.Serializable {
     }
 
     public NFe(
-           org.apache.axis.types.NonNegativeInteger nfeNumero,
-           org.apache.axis.types.NonNegativeInteger nfeSerie,
+    	   Integer nfeNumero,
+    	   Integer nfeSerie,
            java.util.Date nfeData,
            java.math.BigDecimal nfeValTotal,
            java.math.BigDecimal nfeValProd,
-           org.apache.axis.types.NonNegativeInteger nfeCfop,
+           Integer nfeCfop,
            java.lang.String nfeChave) {
            this.nfeNumero = nfeNumero;
            this.nfeSerie = nfeSerie;
@@ -48,7 +52,7 @@ public class NFe  implements java.io.Serializable {
      * 
      * @return nfeNumero
      */
-    public org.apache.axis.types.NonNegativeInteger getNfeNumero() {
+    public Integer getNfeNumero() {
         return nfeNumero;
     }
 
@@ -58,7 +62,7 @@ public class NFe  implements java.io.Serializable {
      * 
      * @param nfeNumero
      */
-    public void setNfeNumero(org.apache.axis.types.NonNegativeInteger nfeNumero) {
+    public void setNfeNumero(Integer nfeNumero) {
         this.nfeNumero = nfeNumero;
     }
 
@@ -68,7 +72,7 @@ public class NFe  implements java.io.Serializable {
      * 
      * @return nfeSerie
      */
-    public org.apache.axis.types.NonNegativeInteger getNfeSerie() {
+    public Integer getNfeSerie() {
         return nfeSerie;
     }
 
@@ -78,7 +82,7 @@ public class NFe  implements java.io.Serializable {
      * 
      * @param nfeSerie
      */
-    public void setNfeSerie(org.apache.axis.types.NonNegativeInteger nfeSerie) {
+    public void setNfeSerie(Integer nfeSerie) {
         this.nfeSerie = nfeSerie;
     }
 
@@ -148,7 +152,7 @@ public class NFe  implements java.io.Serializable {
      * 
      * @return nfeCfop
      */
-    public org.apache.axis.types.NonNegativeInteger getNfeCfop() {
+    public Integer getNfeCfop() {
         return nfeCfop;
     }
 
@@ -158,7 +162,7 @@ public class NFe  implements java.io.Serializable {
      * 
      * @param nfeCfop
      */
-    public void setNfeCfop(org.apache.axis.types.NonNegativeInteger nfeCfop) {
+    public void setNfeCfop(Integer nfeCfop) {
         this.nfeCfop = nfeCfop;
     }
 
