@@ -15,6 +15,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
  
 
@@ -29,22 +32,24 @@ public class RegistraColetaResponse  implements java.io.Serializable {
 
 	@XmlElement(name = "CodigoProc" , namespace = "urn:RegistraColeta")	
 	@XmlSchemaType(name = "nonNegativeInteger")
-	private org.apache.axis.types.NonNegativeInteger codigoProc;
+	private Integer codigoProc;
 
-	//@XmlElement(name = "CodRomaneio")
-    //private java.lang.String codRomaneio;
+	@XmlElement(name = "CodRomaneio")
+    private java.lang.String codRomaneio;
 
 	@XmlElement(name = "ItensProcessados")
-    private org.apache.axis.types.NonNegativeInteger itensProcessados;
+    private Integer itensProcessados;
 
 	@XmlElement(name = "ItensRejeitados")
-    private org.apache.axis.types.NonNegativeInteger itensRejeitados;
+    private Integer itensRejeitados;
 
-	//@XmlElement(name = "ErrosIndividuais")
-    //private br.com.onsys.webservice.coletas.CriticaVolume[] errosIndividuais;
+	@XmlElement(name = "ErrosIndividuais")
+    private br.com.onsys.webservice.coletas.CriticaVolume[] errosIndividuais;
+	
+	private List <CriticaVolume> listaErrosIndividuais;
 
-	//@XmlElement(name = "NumProtocolo")
-    //private org.apache.axis.types.NonNegativeInteger numProtocolo;
+	@XmlElement(name = "NumProtocolo")
+    private Integer numProtocolo;
 
     public RegistraColetaResponse() {
     }
@@ -96,24 +101,50 @@ public class RegistraColetaResponse  implements java.io.Serializable {
         }
   */
 
+    
+    
     /**
      * Gets the codigoProc value for this RegistraColetaResponse.
      * 
      * @return codigoProc
      */
     
-    public org.apache.axis.types.NonNegativeInteger getCodigoProc() {
+    public Integer getCodigoProc() {
         return codigoProc;
     }
 
 
-    /**
+    public br.com.onsys.webservice.coletas.CriticaVolume[] getErrosIndividuais() {
+		return errosIndividuais;
+	}
+
+	public void setErrosIndividuais(br.com.onsys.webservice.coletas.CriticaVolume[] errosIndividuais) {
+		this.errosIndividuais = errosIndividuais;
+	}
+
+	public List<CriticaVolume> getListaErrosIndividuais() {
+		return listaErrosIndividuais;
+	}
+
+	public void setListaErrosIndividuais(List<CriticaVolume> listaErrosIndividuais) {
+		this.listaErrosIndividuais = listaErrosIndividuais;
+	}
+
+	public Integer getNumProtocolo() {
+		return numProtocolo;
+	}
+
+	public void setNumProtocolo(Integer numProtocolo) {
+		this.numProtocolo = numProtocolo;
+	}
+
+	/**
      * Sets the codigoProc value for this RegistraColetaResponse.
      * 
      * @param codigoProc
      */
    
-    public void setCodigoProc(org.apache.axis.types.NonNegativeInteger codigoProc) {
+    public void setCodigoProc(Integer codigoProc) {
         this.codigoProc = codigoProc;
     }
 
@@ -123,7 +154,7 @@ public class RegistraColetaResponse  implements java.io.Serializable {
      * 
      * @return codRomaneio
      
-
+*/
     public java.lang.String getCodRomaneio() {
         return codRomaneio;
     }
@@ -132,7 +163,7 @@ public class RegistraColetaResponse  implements java.io.Serializable {
     public void setCodRomaneio(java.lang.String codRomaneio) {
         this.codRomaneio = codRomaneio;
     }
-*/
+
 
     /**
      * Gets the itensProcessados value for this RegistraColetaResponse.
@@ -140,7 +171,7 @@ public class RegistraColetaResponse  implements java.io.Serializable {
      * @return itensProcessados
      */
 
-    public org.apache.axis.types.NonNegativeInteger getItensProcessados() {
+    public Integer getItensProcessados() {
         return itensProcessados;
     }
 
@@ -151,7 +182,7 @@ public class RegistraColetaResponse  implements java.io.Serializable {
      * @param itensProcessados
      */
     
-    public void setItensProcessados(org.apache.axis.types.NonNegativeInteger itensProcessados) {
+    public void setItensProcessados(Integer itensProcessados) {
         this.itensProcessados = itensProcessados;
     }
 
@@ -162,7 +193,7 @@ public class RegistraColetaResponse  implements java.io.Serializable {
      * @return itensRejeitados
      */
 
-    public org.apache.axis.types.NonNegativeInteger getItensRejeitados() {
+    public Integer getItensRejeitados() {
         return itensRejeitados;
     }
 
@@ -173,7 +204,7 @@ public class RegistraColetaResponse  implements java.io.Serializable {
      * @param itensRejeitados
      */
     
-    public void setItensRejeitados(org.apache.axis.types.NonNegativeInteger itensRejeitados) {
+    public void setItensRejeitados(Integer itensRejeitados) {
         this.itensRejeitados = itensRejeitados;
     }
 
@@ -213,39 +244,6 @@ public class RegistraColetaResponse  implements java.io.Serializable {
 			return false;
 		return true;
 	}
-
-
-    /**
-     * Gets the errosIndividuais value for this RegistraColetaResponse.
-     * 
-     * @return errosIndividuais
-     
-
-    public br.com.onsys.webservice.coletas.CriticaVolume[] getErrosIndividuais() {
-        return errosIndividuais;
-    }
-
-    
-    public void setErrosIndividuais(br.com.onsys.webservice.coletas.CriticaVolume[] errosIndividuais) {
-        this.errosIndividuais = errosIndividuais;
-    }
-     */
-
-    /**
-     * Gets the numProtocolo value for this RegistraColetaResponse.
-     * 
-     * @return numProtocolo
-     
-
-    public org.apache.axis.types.NonNegativeInteger getNumProtocolo() {
-        return numProtocolo;
-    }
-
-   
-    public void setNumProtocolo(org.apache.axis.types.NonNegativeInteger numProtocolo) {
-        this.numProtocolo = numProtocolo;
-    }
-     */
 
     
 }

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -21,6 +22,8 @@ import org.xml.sax.InputSource;
 
 import br.com.onsys.webservice.CalcularFreteResponse;
 import br.com.onsys.webservice.DadosFrete;
+import br.com.onsys.webservice.coletas.CriticaVolume;
+import br.com.onsys.webservice.coletas.RegistraColetaResponse;
 
 public class JAXBUtil implements Serializable {
 
@@ -42,6 +45,74 @@ public class JAXBUtil implements Serializable {
     }
 	
 
+	public static RegistraColetaResponse preencherRegistraColetaResponse(String response) throws Exception {
+		
+		RegistraColetaResponse registraColetaResponse = new RegistraColetaResponse();
+		try {
+
+			//Get Document Builder
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+	
+			//Build Document
+			Document document = builder.parse(new InputSource(new StringReader(response)));
+	
+			//Normalize the XML Structure; It's just too important !!
+			document.getDocumentElement().normalize();
+	
+			//Here comes the root node
+			Element root = document.getDocumentElement();
+			System.out.println(root.getNodeName());
+	
+			
+			NodeList nList = document.getElementsByTagName("RegistraColetaResponse");
+
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+				Node node = nList.item(temp);
+				System.out.println("");    //Just a separator
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) node;
+
+					registraColetaResponse.
+						setCodigoProc(Integer.parseInt(eElement.getElementsByTagName("CodigoProc").item(0).getTextContent()));
+					registraColetaResponse.
+						setItensProcessados(Integer.parseInt(eElement.getElementsByTagName("ItensProcessados").item(0).getTextContent()));
+					
+					NodeList listaErrosIndividuais = eElement.getElementsByTagName("ErrosIndividuais");
+					
+					registraColetaResponse.setListaErrosIndividuais(new ArrayList<CriticaVolume>());
+					
+					for(int i = 0; i < listaErrosIndividuais.getLength(); i++) {
+						Node item = listaErrosIndividuais.item(i);
+						CriticaVolume criticaVolume = new CriticaVolume();
+						if (item.getNodeType() == Node.ELEMENT_NODE) {
+							Element itemElement = (Element) item;
+
+							if(itemElement.getAttribute("CriticaVolume") != null) {
+								criticaVolume.setPedido(itemElement.getElementsByTagName("Pedido").item(0).getTextContent());
+								criticaVolume.setIdCliente(itemElement.getElementsByTagName("IdCliente").item(0).getTextContent());
+								criticaVolume.setCodigoErro(Integer.parseInt(itemElement.getElementsByTagName("CodigoErro").item(0).getTextContent()));
+								criticaVolume.setDescricaoErro(itemElement.getElementsByTagName("DescricaoErro").item(0).getTextContent());
+							}
+						}
+						
+						registraColetaResponse.getListaErrosIndividuais().add(criticaVolume);
+					}
+					
+				}
+			}
+			
+			System.out.println("============================");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+			
+		
+		return registraColetaResponse;
+		
+	}
+	
 	public static CalcularFreteResponse preecherCalcularFreteResponse(String response) throws Exception  {
 
 		CalcularFreteResponse calcularFreteResponse = new CalcularFreteResponse();

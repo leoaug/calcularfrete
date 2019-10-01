@@ -12,7 +12,7 @@ public class CriticaVolume  implements java.io.Serializable {
 
     private java.lang.String idCliente;
 
-    private org.apache.axis.types.NonNegativeInteger codigoErro;
+    private Integer codigoErro;
 
     private java.lang.String descricaoErro;
 
@@ -22,7 +22,7 @@ public class CriticaVolume  implements java.io.Serializable {
     public CriticaVolume(
            java.lang.String pedido,
            java.lang.String idCliente,
-           org.apache.axis.types.NonNegativeInteger codigoErro,
+           Integer codigoErro,
            java.lang.String descricaoErro) {
            this.pedido = pedido;
            this.idCliente = idCliente;
@@ -76,7 +76,7 @@ public class CriticaVolume  implements java.io.Serializable {
      * 
      * @return codigoErro
      */
-    public org.apache.axis.types.NonNegativeInteger getCodigoErro() {
+    public Integer getCodigoErro() {
         return codigoErro;
     }
 
@@ -86,7 +86,7 @@ public class CriticaVolume  implements java.io.Serializable {
      * 
      * @param codigoErro
      */
-    public void setCodigoErro(org.apache.axis.types.NonNegativeInteger codigoErro) {
+    public void setCodigoErro(Integer codigoErro) {
         this.codigoErro = codigoErro;
     }
 

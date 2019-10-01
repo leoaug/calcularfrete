@@ -70,6 +70,7 @@ public class RegistrarColetaController implements Serializable {
 
 	public String reinit() {
 		this.initEncomenda();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Item adicionado."));
         return null;
     }
 	public void adicionarEncomenda() {
@@ -82,6 +83,7 @@ public class RegistrarColetaController implements Serializable {
         		enc.setListaDocFiscalNFe(new ArrayList<NFe>());
         	}
         	this.initEncomenda();
+
         }
     }
 	

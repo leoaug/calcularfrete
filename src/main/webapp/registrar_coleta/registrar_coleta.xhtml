@@ -54,7 +54,10 @@
 		        					     value="#{registrarColetaController.encomenda.CNPJ}" />
 						
 							<p:outputLabel for="tipoEntregaEncomenda" value="Tipo de Entrega " />
-							<p:selectOneMenu id="tipoEntregaEncomenda" value="#{registrarColetaController.encomenda.tipoEntrega}">
+							<p:selectOneMenu id="tipoEntregaEncomenda" 
+											requiredMessage="Informe o tipo de entrega"
+					        				required="true"
+											value="#{registrarColetaController.encomenda.tipoEntrega}">
 					         	<f:selectItem itemLabel="Selecione" />
 					            <f:selectItem itemLabel="Entrega Normal" itemValue="0" />
 					            <f:selectItem itemLabel="GoBack" itemValue="1" />
@@ -287,13 +290,18 @@
 	       					
 	       				</p:panelGrid>
 	       			</div>
-	       			
-	       			 <p:commandButton id="botaoAdicionarEncomenda" value="Adicionar Encomenda" update="idDataTableEmcomendas @form" action="#{registrarColetaController.reinit}" >
+	       			                 		
+				</p:fieldset>
+				
+				<br/>
+				<center>
+				
+	       		 	<p:commandButton id="botaoAdicionarEncomenda" value="Adicionar Coleta na Lista" update="idDataTableEmcomendas @form idFormRegistrarColeta" action="#{registrarColetaController.reinit}" >
                 			<p:collector value="#{registrarColetaController.encomenda}" 
                 						 addTo="#{registrarColetaController.registraColetaRequest.listaEncomendas}" 
                 						 unique="true"/>
             		</p:commandButton>
-				</p:fieldset>	
+				</center>
 				
 				<br/>
 				
@@ -317,9 +325,20 @@
 	        				</ul>	
 	   					</p:column>
 	   					<p:column headerText="Registrar NFe(s)">
-	   						<p:commandButton value="Cadastar NFE" immediate="true"
+	   						<p:commandButton value="Cadastar NFE" 
+	   										 immediate="true"
 	   										 action="#{registrarColetaController.guardarIndexEncomedaLista(encomenda)}"	
-	   										 oncomplete="PF('widgetVarDialogNFE').show()"/>
+	   										 oncomplete="PF('widgetVarDialogNFE').show()" />					 
+	   					</p:column>
+	   					
+	   					<p:column headerText="Remover Encomenda">
+	   						 <p:commandButton value="Remover Encomenda" 
+	   						 				  update="idDataTableEmcomendas idFormRegistrarColeta" 
+	   						 				  process="idDataTableEmcomendas idFormRegistrarColeta">
+                    			<p:collector value="#{encomenda}" 
+                    				 		removeFrom="#{registrarColetaController.registraColetaRequest.listaEncomendas}" 
+                    				 		unique="true" />
+                			</p:commandButton>	
 	   					</p:column>
 					</p:dataTable>
 				
@@ -327,6 +346,61 @@
 				
 			</h:form>
 		</p:panel>
+		<br/>
+		<center>
+			<h:form id="idFormRegistrarColeta" prependId="false">
+				
+				<p:commandButton value=".:: Registrar Coleta ::." 
+								 rendered="#{not empty registrarColetaController.registraColetaRequest.listaEncomendas}"
+								 onclick="PF('statusDialogTemplate').show();" 
+								 action="#{registrarColetaController.registraColeta}" 
+								 update="IdFeldSetResultadoColeta"
+									 />
+		
+			</h:form>
+		</center>
+		<br/>
+		<p:fieldset id="IdFeldSetResultadoColeta" legend=".:: Resultado da Coleta ::.">
+		
+			<h:outputText value="Código de Processamento: " style="font-weight: bolder" />		
+			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 0}" 
+				value="Cliente não autorizado a realizar o procedimento" />
+			
+			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 1}" 
+				value="Processado com sucesso, Obs: Processamento realizado com sucesso." />
+			
+			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 2}" 
+				value="Sistema indisponível no momento, Obs: O cliente deverá realizar a transmissão novamente mais tarde." />
+			
+			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 3}" 
+				value="Erro na validação XSD, Obs: O cliente deverá verificar a estrutura do conteúdo enviado." />
+	 
+			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 4}" 
+				value="Erro sistêmico por parte da TOTAL EXPRESS, Obs: O cliente deverá realizar a transmissão novamente mais tarde." />
+			
+			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 5}" 
+				value=" Erro com os dados enviados (campos mandatórios não
+					preenchidos, etc.) em pelo menos um dos volumes enviados.
+				Obs: Nesse caso será enviada a matriz “ErrosIndividuais” de
+				elementos do tipo “CriticaVolume” para cada item inválido." />
+	
+		
+			<p:dataList var="criticaVolume" value="#{registrarColetaController.registraColetaResponse.listaErrosIndividuais}">
+				<f:facet name="header">
+            		Critica Volume
+        		</f:facet>
+        		<h:outputText value="Pedido:" style="font-weight: bolder"  /> #{criticaVolume.pedido} 
+        		<br/>
+        		<h:outputText value="Id Cliente:" style="font-weight: bolder"  /> #{criticaVolume.idCliente} 
+				<br/>				
+				<h:outputText value="Códig Erro:" style="font-weight: bolder" /> #{criticaVolume.codigoErro}
+				<br/>
+				<h:outputText value="Descrição Erro:" style="font-weight: bolder" />  #{criticaVolume.descricaoErro}
+				
+				
+			</p:dataList>
+		
+		</p:fieldset>
 		
 		<p:dialog  widgetVar="widgetVarDialogNFE" header="Dados do FE" showEffect="clip" hideEffect="clip" modal="true" onShow="#{registrarColetaController.resetarNfe()}">
 			<h:form>
@@ -388,10 +462,5 @@
 			</h:form>		
 		</p:dialog>
 		
-			<p:commandButton value="Registrar Coleta" 
-							 onclick="PF('statusDialogTemplate').show();" 
-							 action="#{registrarColetaController.registraColeta}" 
-								 />
-	
 	</ui:define>
 </ui:composition>
