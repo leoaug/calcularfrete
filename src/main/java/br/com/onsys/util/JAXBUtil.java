@@ -24,6 +24,7 @@ import br.com.onsys.webservice.CalcularFreteResponse;
 import br.com.onsys.webservice.DadosFrete;
 import br.com.onsys.webservice.coletas.CriticaVolume;
 import br.com.onsys.webservice.coletas.RegistraColetaResponse;
+import br.com.onsys.webservice.coletas.ObterTrackingResponse;
 
 public class JAXBUtil implements Serializable {
 
@@ -45,6 +46,46 @@ public class JAXBUtil implements Serializable {
     }
 	
 
+	public static ObterTrackingResponse preencherObterTrackingResponse(String response) throws Exception {
+		ObterTrackingResponse obterTrackingResponse = new ObterTrackingResponse();
+		
+		try {
+		
+			//Get Document Builder
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+	
+			//Build Document
+			Document document = builder.parse(new InputSource(new StringReader(response)));
+	
+			//Normalize the XML Structure; It's just too important !!
+			document.getDocumentElement().normalize();
+	
+			//Here comes the root node
+			Element root = document.getDocumentElement();
+			System.out.println(root.getNodeName());
+	
+			
+			NodeList nList = document.getElementsByTagName("ObterTrackingResponse");
+			
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+				Node node = nList.item(temp);
+				System.out.println("");    //Just a separator
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) node;
+					
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}	
+			
+		return obterTrackingResponse;
+	}
+	
 	public static RegistraColetaResponse preencherRegistraColetaResponse(String response) throws Exception {
 		
 		RegistraColetaResponse registraColetaResponse = new RegistraColetaResponse();

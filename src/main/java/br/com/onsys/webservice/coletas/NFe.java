@@ -19,8 +19,12 @@ public class NFe  implements java.io.Serializable {
     private java.util.Date nfeData;
 
     private java.math.BigDecimal nfeValTotal;
+    
+    private String nfeValTotalString;
 
     private java.math.BigDecimal nfeValProd;
+    
+    private String nfeValProdString;
 
     private Integer nfeCfop;
 
@@ -47,7 +51,25 @@ public class NFe  implements java.io.Serializable {
     }
 
 
-    /**
+    
+    
+    public String getNfeValProdString() {
+		return nfeValProdString;
+	}
+
+	public void setNfeValProdString(String nfeValProdString) {
+		this.nfeValProdString = nfeValProdString;
+	}
+
+	public String getNfeValTotalString() {
+		return nfeValTotalString;
+	}
+
+	public void setNfeValTotalString(String nfeValTotalString) {
+		this.nfeValTotalString = nfeValTotalString;
+	}
+
+	/**
      * Gets the nfeNumero value for this NFe.
      * 
      * @return nfeNumero

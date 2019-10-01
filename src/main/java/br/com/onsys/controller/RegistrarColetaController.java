@@ -51,6 +51,7 @@ public class RegistrarColetaController implements Serializable {
 		
 		getRegistraColetaRequest().setListaEncomendas(new ArrayList<Encomenda>());
 		
+		setRegistraColetaResponse(new RegistraColetaResponse());
 		
 		setEncomendaDialog(new Encomenda());
 		

@@ -82,6 +82,7 @@
 	        				<p:inputText id="condFrete" 
 	        							requiredMessage="Informe a condição do frete"
 					        			required="true"
+					        			maxlength="3"
 	        						 	value="#{registrarColetaController.encomenda.condFrete}" />	
 							
 							<p:outputLabel for="pedido" value="Pedido " />
@@ -356,50 +357,50 @@
 								 action="#{registrarColetaController.registraColeta}" 
 								 update="IdFeldSetResultadoColeta"
 									 />
-		
+				<p:commandButton value="Limpar Tela" action="#{registrarColetaController.onInit}" update="@all" />
 			</h:form>
 		</center>
 		<br/>
 		<p:fieldset id="IdFeldSetResultadoColeta" legend=".:: Resultado da Coleta ::.">
-		
-			<h:outputText value="Código de Processamento: " style="font-weight: bolder" />		
-			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 0}" 
-				value="Cliente não autorizado a realizar o procedimento" />
-			
-			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 1}" 
-				value="Processado com sucesso, Obs: Processamento realizado com sucesso." />
-			
-			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 2}" 
-				value="Sistema indisponível no momento, Obs: O cliente deverá realizar a transmissão novamente mais tarde." />
-			
-			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 3}" 
-				value="Erro na validação XSD, Obs: O cliente deverá verificar a estrutura do conteúdo enviado." />
-	 
-			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 4}" 
-				value="Erro sistêmico por parte da TOTAL EXPRESS, Obs: O cliente deverá realizar a transmissão novamente mais tarde." />
-			
-			<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 5}" 
-				value=" Erro com os dados enviados (campos mandatórios não
-					preenchidos, etc.) em pelo menos um dos volumes enviados.
-				Obs: Nesse caso será enviada a matriz “ErrosIndividuais” de
-				elementos do tipo “CriticaVolume” para cada item inválido." />
+			<h:form>
+				<h:outputText value="Código de Processamento: " style="font-weight: bolder" />		
+				<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 0}" 
+					value="Cliente não autorizado a realizar o procedimento" />
+				
+				<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 1}" 
+					value="Processado com sucesso, Obs: Processamento realizado com sucesso." />
+				
+				<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 2}" 
+					value="Sistema indisponível no momento, Obs: O cliente deverá realizar a transmissão novamente mais tarde." />
+				
+				<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 3}" 
+					value="Erro na validação XSD, Obs: O cliente deverá verificar a estrutura do conteúdo enviado." />
+		 
+				<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 4}" 
+					value="Erro sistêmico por parte da TOTAL EXPRESS, Obs: O cliente deverá realizar a transmissão novamente mais tarde." />
+				
+				<h:outputText rendered="#{registrarColetaController.registraColetaResponse.codigoProc eq 5}" 
+					value=" Erro com os dados enviados (campos mandatórios não
+						preenchidos, etc.) em pelo menos um dos volumes enviados.
+					Obs: Nesse caso será enviada a matriz “ErrosIndividuais” de
+					elementos do tipo “CriticaVolume” para cada item inválido." />
 	
 		
-			<p:dataList var="criticaVolume" value="#{registrarColetaController.registraColetaResponse.listaErrosIndividuais}">
-				<f:facet name="header">
-            		Critica Volume
-        		</f:facet>
-        		<h:outputText value="Pedido:" style="font-weight: bolder"  /> #{criticaVolume.pedido} 
-        		<br/>
-        		<h:outputText value="Id Cliente:" style="font-weight: bolder"  /> #{criticaVolume.idCliente} 
-				<br/>				
-				<h:outputText value="Códig Erro:" style="font-weight: bolder" /> #{criticaVolume.codigoErro}
-				<br/>
-				<h:outputText value="Descrição Erro:" style="font-weight: bolder" />  #{criticaVolume.descricaoErro}
-				
-				
-			</p:dataList>
-		
+				<p:dataList var="criticaVolume" value="#{registrarColetaController.registraColetaResponse.listaErrosIndividuais}">
+					<f:facet name="header">
+	            		Critica Volume
+	        		</f:facet>
+	        		<h:outputText value="Pedido:" style="font-weight: bolder"  /> #{criticaVolume.pedido} 
+	        		<br/>
+	        		<h:outputText value="Id Cliente:" style="font-weight: bolder"  /> #{criticaVolume.idCliente} 
+					<br/>				
+					<h:outputText value="Códig Erro:" style="font-weight: bolder" /> #{criticaVolume.codigoErro}
+					<br/>
+					<h:outputText value="Descrição Erro:" style="font-weight: bolder" />  #{criticaVolume.descricaoErro}
+					
+					
+				</p:dataList>
+			</h:form>
 		</p:fieldset>
 		
 		<p:dialog  widgetVar="widgetVarDialogNFE" header="Dados do FE" showEffect="clip" hideEffect="clip" modal="true" onShow="#{registrarColetaController.resetarNfe()}">
@@ -425,20 +426,14 @@
         				<p:outputLabel for="nfeValTotal" value="Valor total da Nota Fiscal " />
 	        			<p:inputText id="nfeValTotal" 
 	        						 maxlength="15"	        							       							
-	        						 value="#{registrarColetaController.nfe.nfeValTotal}" >
-	        						 	
-	        						 <p:keyFilter regEx="/[0-9_]/i" />
-	        						 	
-	        			</p:inputText>	
+	        						 value="#{registrarColetaController.nfe.nfeValTotalString}" />
+	        					 		        					
         				 	
         				<p:outputLabel for="nfeValProd" value="Valor total dos produtos " />
 	        			<p:inputText id="nfeValProd" 
 	        						 maxlength="15"	        							       							
-	        						 value="#{registrarColetaController.nfe.nfeValProd}" >
+	        						 value="#{registrarColetaController.nfe.nfeValProdString}" />
 	        						 	
-	        						 <p:keyFilter regEx="/[0-9_]/i" />
-	        						 	
-	        			</p:inputText>	 	
         				 	
         				<p:outputLabel for="nfeCfop" value="CFOP predominante " />
 	        			<p:inputText id="nfeCfop" 

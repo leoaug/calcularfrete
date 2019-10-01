@@ -44,11 +44,12 @@ public class RegistraColetaService implements Serializable {
 				"</SOAP-ENV:Envelope> ";
 				
 		
-		/*
+		
 		String response =  WebServiceUtil.carregaXMLWebServicesComProxy(request,"btf-qa","8ZJPQbkv","https://edi.totalexpress.com.br/webservice24.php?wsdl","RegistraColeta",
 				"c1260311", "95350120", "localhost", 40080);
-		*/
+		/*
 		String response = WebServiceUtil.carregaXMLWebServices(request,"btf-qa","8ZJPQbkv","https://edi.totalexpress.com.br/webservice24.php?wsdl","RegistraColeta");
+		*/
 		System.out.println(response);
 		
 		return JAXBUtil.preencherRegistraColetaResponse(response);
@@ -57,10 +58,12 @@ public class RegistraColetaService implements Serializable {
 	}
 
 	private String montarItensEncomenda(RegistraColetaRequest registraColetaRequest) {
-		 StringBuilder builderItensEncomenda = new StringBuilder();
+		StringBuilder builderItensEncomenda = new StringBuilder();
 		for(Encomenda encomenda : registraColetaRequest.getListaEncomendas()) {
 			
-			//encomenda.setListaDocFiscalNFe(new ArrayList<NFe>());
+			String email = encomenda.getDestEmail() == null ? "0" : encomenda.getDestEmail();
+			Integer ddd = encomenda.getDestDdd() == null ? 0 : encomenda.getDestDdd();
+			Integer telefone1 = encomenda.getDestTelefone1() == null ? 0 : encomenda.getDestTelefone1();
 			
 			builderItensEncomenda.append("<item xsi:type=\"ns2:Encomenda\">\n" + 
 					"						<TipoServico xsi:type=\"xsd:nonNegativeInteger\">"+encomenda.getTipoServico().intValue()+"</TipoServico>\n" + 
@@ -80,9 +83,9 @@ public class RegistraColetaService implements Serializable {
 					"						<DestCidade xsi:type=\"xsd:string\">"+encomenda.getDestCidade()+"</DestCidade>\n" + 
 					"						<DestEstado xsi:type=\"xsd:string\">"+encomenda.getDestEstado()+"</DestEstado>\n" + 
 					"						<DestCep xsi:type=\"xsd:nonNegativeInteger\">"+encomenda.getDestCep()+"</DestCep>\n" + 
-					"						<DestEmail xsi:type=\"xsd:string\">"+encomenda.getDestEmail()+"</DestEmail>\n" + 
-					"						<DestDdd xsi:type=\"xsd:nonNegativeInteger\">"+encomenda.getDestDdd()+"</DestDdd>\n" + 
-					"						<DestTelefone1 xsi:type=\"xsd:nonNegativeInteger\">"+encomenda.getDestTelefone1()+"</DestTelefone1>\n" + 
+					"						<DestEmail xsi:type=\"xsd:string\">"+email+"</DestEmail>\n" + 
+					"						<DestDdd xsi:type=\"xsd:nonNegativeInteger\">"+ddd+"</DestDdd>\n" + 
+					"						<DestTelefone1 xsi:type=\"xsd:nonNegativeInteger\">"+telefone1+"</DestTelefone1>\n" + 
 					"						<DocFiscalNFe SOAP-ENC:arrayType=\"ns2:NFe["+encomenda.getListaDocFiscalNFe().size()+"]\" xsi:type=\"ns2:DocFiscalNFe\">\n" + 
 					
 												this.montarItensNotaFiscal(encomenda) +
@@ -101,8 +104,8 @@ public class RegistraColetaService implements Serializable {
 				"								<NfeNumero xsi:type=\"xsd:nonNegativeInteger\">"+nfe.getNfeNumero()+"</NfeNumero>\n" + 
 				"								<NfeSerie xsi:type=\"xsd:nonNegativeInteger\">"+nfe.getNfeSerie()+"</NfeSerie>\n" + 
 				"								<NfeData xsi:type=\"xsd:date\">"+nfe.getNfeData()+"</NfeData>\n" + 
-				"								<NfeValTotal xsi:type=\"xsd:decimal\">"+nfe.getNfeValTotal()+"</NfeValTotal>\n" + 
-				"								<NfeValProd xsi:type=\"xsd:decimal\">"+nfe.getNfeValProd()+"</NfeValProd>\n" + 
+				"								<NfeValTotal xsi:type=\"xsd:decimal\">"+nfe.getNfeValTotalString()+"</NfeValTotal>\n" + 
+				"								<NfeValProd xsi:type=\"xsd:decimal\">"+nfe.getNfeValProdString()+"</NfeValProd>\n" + 
 				"								<NfeCfop xsi:type=\"xsd:nonNegativeInteger\">"+nfe.getNfeCfop()+"</NfeCfop>\n" + 
 				"								<NfeChave xsi:type=\"xsd:string\"> "+nfe.getNfeChave()+" </NfeChave>\n" + 
 			"							    </item>\n"); 

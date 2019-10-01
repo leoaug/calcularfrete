@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition
+	template="/index.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	   	
+    <h:outputText value=".:: Obter Tracking ::." />
+    
+
+	<ui:define name="content">
+	
+	
+		<p:panel header=".:: Obter tracking ::.">
+			<h:form>	
+				<p:growl showDetail="true"/>
+				<div class="ui-fluid">
+	       			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+	       			 
+	       			 </p:panelGrid>
+	       		</div>
+	       	</h:form>
+	    </p:panel>
+    
+ 	</ui:define>
+ 
+ </ui:composition>
