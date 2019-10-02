@@ -1,49 +1,14 @@
 package br.com.onsys.service;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+
 import java.io.Serializable;
-import java.io.StringReader;
-import java.rmi.RemoteException;
-import java.util.Iterator;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.UnmarshallerHandler;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPConstants;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.stream.StreamSource;
-
-import org.apache.axis.AxisFault;
-import org.apache.axis.types.NonNegativeInteger;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-
 import br.com.onsys.bean.CalcularFreteBean;
 import br.com.onsys.constantes.OnsysConstantes;
 import br.com.onsys.service.util.WebServiceUtil;
 import br.com.onsys.util.JAXBUtil;
-import br.com.onsys.webservice.CalcularFreteRequest;
 import br.com.onsys.webservice.CalcularFreteResponse;
-import br.com.onsys.webservice.DadosFrete;
-import br.com.onsys.webservice.Webservice_calculo_freteTotalBindingStub;
-import br.com.onsys.webservice.Webservice_calculo_freteTotalPortTypeProxy;
-import br.com.onsys.webservice.coletas.RegistraColetaResponse;
-import br.com.onsys.webservice.coletas.Webservice_v24TotalBindingStub;
-import br.com.onsys.webservice.coletas.Webservice_v24TotalLocator;
+
 
 @Service
 public class CalcularFreteService implements Serializable {
@@ -103,8 +68,8 @@ public class CalcularFreteService implements Serializable {
 																					   40080);
 				*/
 				String response =  WebServiceUtil.carregaXMLWebServices(request,
-																		OnsysConstantes.USER_DESENV,
-																		OnsysConstantes.PASS_DESENV,
+																		OnsysConstantes.USER_PROD,
+																		OnsysConstantes.PASS_PROD,
 																		OnsysConstantes.WSDL_CALCULO_FRETE,
 																		OnsysConstantes.WSDL_CALCULO_FRETE_ACTION);
 						

@@ -1,10 +1,7 @@
 package br.com.onsys.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Service;
-
 import br.com.onsys.constantes.OnsysConstantes;
 import br.com.onsys.service.util.WebServiceUtil;
 import br.com.onsys.util.JAXBUtil;
@@ -47,19 +44,18 @@ public class RegistraColetaService implements Serializable {
 		
 		/*
 		String responseComProxy =  WebServiceUtil.carregaXMLWebServicesComProxy(request,
-																		OnsysConstantes.USER_DESENV,
-																		OnsysConstantes.PASS_DESENV,
+																		OnsysConstantes.USER_PROD,
+																		OnsysConstantes.PASS_PROD,
 																		OnsysConstantes.WSDL_REGISTRA_COLETA_OBTER_TRACKING,
 																		OnsysConstantes.WSDL_REGISTRA_COLETA_ACTION,
 															"c1260311", "95350120", "localhost", 40080);
 		*/
 		String response = WebServiceUtil.carregaXMLWebServices(request,
-															   OnsysConstantes.USER_DESENV,
-															   OnsysConstantes.PASS_DESENV,
+															   OnsysConstantes.USER_PROD,
+															   OnsysConstantes.PASS_PROD,
 															   OnsysConstantes.WSDL_REGISTRA_COLETA_OBTER_TRACKING,
 															   OnsysConstantes.WSDL_REGISTRA_COLETA_ACTION);
 		
-		System.out.println(response);
 		
 		return JAXBUtil.preencherRegistraColetaResponse(response);
 		
