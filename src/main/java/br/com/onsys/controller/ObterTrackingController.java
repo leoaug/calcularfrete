@@ -2,8 +2,15 @@ package br.com.onsys.controller;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.onsys.service.ObterTrackingService;
+import br.com.onsys.webservice.coletas.ObterTrackingRequest;
+import br.com.onsys.webservice.coletas.ObterTrackingResponse;
 
 @Named
 @ViewScoped
@@ -11,5 +18,46 @@ public class ObterTrackingController implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
+	
+	private ObterTrackingResponse obterTrackingResponse;
+	
+	private ObterTrackingRequest obterTrackingRequest;
+	
+	@Autowired
+	private ObterTrackingService obterTrackingService;
+	
+	@PostConstruct
+	public void onInit() {
+		setObterTrackingRequest(new ObterTrackingRequest());
 
+	}
+	
+	public void obterTracking() {
+		
+		try {
+			setObterTrackingResponse(obterTrackingService.obterTracking(getObterTrackingRequest()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public ObterTrackingResponse getObterTrackingResponse() {
+		return obterTrackingResponse;
+	}
+
+	public void setObterTrackingResponse(ObterTrackingResponse obterTrackingResponse) {
+		this.obterTrackingResponse = obterTrackingResponse;
+	}
+
+	public ObterTrackingRequest getObterTrackingRequest() {
+		return obterTrackingRequest;
+	}
+
+	public void setObterTrackingRequest(ObterTrackingRequest obterTrackingRequest) {
+		this.obterTrackingRequest = obterTrackingRequest;
+	}
+
+	
+	
 }

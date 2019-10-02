@@ -8,7 +8,7 @@
 package br.com.onsys.webservice.coletas;
  
 public class StatusTotal  implements java.io.Serializable {
-    private org.apache.axis.types.NonNegativeInteger codStatus;
+    private Integer codStatus;
 
     private java.lang.String descStatus;
 
@@ -18,7 +18,7 @@ public class StatusTotal  implements java.io.Serializable {
     }
 
     public StatusTotal(
-           org.apache.axis.types.NonNegativeInteger codStatus,
+           Integer codStatus,
            java.lang.String descStatus,
            java.util.Calendar dataStatus) {
            this.codStatus = codStatus;
@@ -32,7 +32,7 @@ public class StatusTotal  implements java.io.Serializable {
      * 
      * @return codStatus
      */
-    public org.apache.axis.types.NonNegativeInteger getCodStatus() {
+    public Integer getCodStatus() {
         return codStatus;
     }
 
@@ -42,7 +42,7 @@ public class StatusTotal  implements java.io.Serializable {
      * 
      * @param codStatus
      */
-    public void setCodStatus(org.apache.axis.types.NonNegativeInteger codStatus) {
+    public void setCodStatus(Integer codStatus) {
         this.codStatus = codStatus;
     }
 

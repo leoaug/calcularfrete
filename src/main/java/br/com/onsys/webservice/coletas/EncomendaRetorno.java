@@ -6,13 +6,19 @@
  */
 
 package br.com.onsys.webservice.coletas;
- 
+
+import java.util.List;
+
 public class EncomendaRetorno  implements java.io.Serializable {
-    private org.apache.axis.types.NonNegativeInteger awb;
+    
+	 
+	private static final long serialVersionUID = 1L;
+
+	private Integer awb;
 
     private java.lang.String pedido;
 
-    private org.apache.axis.types.NonNegativeInteger notaFiscal;
+    private Integer notaFiscal;
 
     private java.lang.String serieNotaFiscal;
 
@@ -21,16 +27,20 @@ public class EncomendaRetorno  implements java.io.Serializable {
     private java.lang.String codigoObjeto;
 
     private br.com.onsys.webservice.coletas.StatusTotal[] arrayStatusTotal;
+    
+    private List <StatusTotal> listaStatusTotal;
 
     private br.com.onsys.webservice.coletas.StatusEct[] arrayStatusEct;
+    
+    private List <StatusEct> listaStatusEct;
 
     public EncomendaRetorno() {
     }
 
     public EncomendaRetorno(
-           org.apache.axis.types.NonNegativeInteger awb,
+           Integer awb,
            java.lang.String pedido,
-           org.apache.axis.types.NonNegativeInteger notaFiscal,
+           Integer notaFiscal,
            java.lang.String serieNotaFiscal,
            java.lang.String idCliente,
            java.lang.String codigoObjeto,
@@ -46,13 +56,31 @@ public class EncomendaRetorno  implements java.io.Serializable {
            this.arrayStatusEct = arrayStatusEct;
     }
 
+    
+    
+    
+    public List<StatusTotal> getListaStatusTotal() {
+		return listaStatusTotal;
+	}
 
-    /**
+	public void setListaStatusTotal(List<StatusTotal> listaStatusTotal) {
+		this.listaStatusTotal = listaStatusTotal;
+	}
+
+	public List<StatusEct> getListaStatusEct() {
+		return listaStatusEct;
+	}
+
+	public void setListaStatusEct(List<StatusEct> listaStatusEct) {
+		this.listaStatusEct = listaStatusEct;
+	}
+
+	/**
      * Gets the awb value for this EncomendaRetorno.
      * 
      * @return awb
      */
-    public org.apache.axis.types.NonNegativeInteger getAwb() {
+    public Integer getAwb() {
         return awb;
     }
 
@@ -62,7 +90,7 @@ public class EncomendaRetorno  implements java.io.Serializable {
      * 
      * @param awb
      */
-    public void setAwb(org.apache.axis.types.NonNegativeInteger awb) {
+    public void setAwb(Integer awb) {
         this.awb = awb;
     }
 
@@ -92,7 +120,7 @@ public class EncomendaRetorno  implements java.io.Serializable {
      * 
      * @return notaFiscal
      */
-    public org.apache.axis.types.NonNegativeInteger getNotaFiscal() {
+    public Integer getNotaFiscal() {
         return notaFiscal;
     }
 
@@ -102,7 +130,7 @@ public class EncomendaRetorno  implements java.io.Serializable {
      * 
      * @param notaFiscal
      */
-    public void setNotaFiscal(org.apache.axis.types.NonNegativeInteger notaFiscal) {
+    public void setNotaFiscal(Integer notaFiscal) {
         this.notaFiscal = notaFiscal;
     }
 

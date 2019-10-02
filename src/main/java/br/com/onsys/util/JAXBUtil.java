@@ -4,7 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -23,7 +26,11 @@ import org.xml.sax.InputSource;
 import br.com.onsys.webservice.CalcularFreteResponse;
 import br.com.onsys.webservice.DadosFrete;
 import br.com.onsys.webservice.coletas.CriticaVolume;
+import br.com.onsys.webservice.coletas.EncomendaRetorno;
+import br.com.onsys.webservice.coletas.LoteRetorno;
 import br.com.onsys.webservice.coletas.RegistraColetaResponse;
+import br.com.onsys.webservice.coletas.StatusEct;
+import br.com.onsys.webservice.coletas.StatusTotal;
 import br.com.onsys.webservice.coletas.ObterTrackingResponse;
 
 public class JAXBUtil implements Serializable {
@@ -65,6 +72,8 @@ public class JAXBUtil implements Serializable {
 			Element root = document.getDocumentElement();
 			System.out.println(root.getNodeName());
 	
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 			
 			NodeList nList = document.getElementsByTagName("ObterTrackingResponse");
 			
@@ -73,6 +82,128 @@ public class JAXBUtil implements Serializable {
 				System.out.println("");    //Just a separator
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) node;
+					
+					obterTrackingResponse.
+						setCodigoProc(Integer.parseInt(eElement.getElementsByTagName("CodigoProc").item(0).getTextContent()));
+
+					
+					NodeList listaArrayLoteRetorno = eElement.getElementsByTagName("ArrayLoteRetorno");
+					
+					obterTrackingResponse.setListaLoteRetorno(new ArrayList<LoteRetorno>());
+					
+					for(int i = 0; i < listaArrayLoteRetorno.getLength(); i++) {
+						Node item = listaArrayLoteRetorno.item(i);
+						LoteRetorno loteRetorno = new LoteRetorno();
+						if (item.getNodeType() == Node.ELEMENT_NODE) {
+							Element itemElement = (Element) item;
+
+							if(itemElement.getAttribute("LoteRetorno") != null) {
+
+								loteRetorno.
+									setCodRetorno(Integer.parseInt(itemElement.getElementsByTagName("CodRetorno").item(0).getTextContent()));
+								
+								NodeList listaArrayEncomendaRetorno = itemElement.getElementsByTagName("ArrayEncomendaRetorno");
+								loteRetorno.setListaEncomendaRetorno(new ArrayList<EncomendaRetorno>());
+								
+								for(int j = 0; i < listaArrayEncomendaRetorno.getLength(); i++) {
+									Node itemEncomenda = listaArrayEncomendaRetorno.item(j);
+									EncomendaRetorno encomendaRetorno = new EncomendaRetorno();
+									if (itemEncomenda.getNodeType() == Node.ELEMENT_NODE) {
+										Element itemElementEncomendaRetorno = (Element) itemEncomenda;
+										if(itemElementEncomendaRetorno.getAttribute("EncomendaRetorno") != null) {
+										
+											encomendaRetorno.
+												setIdCliente(itemElementEncomendaRetorno.getElementsByTagName("IdCliente").item(0).getTextContent());
+										
+											encomendaRetorno.
+												setAwb(Integer.parseInt(itemElementEncomendaRetorno.getElementsByTagName("Awb").item(0).getTextContent()));
+											
+											encomendaRetorno.
+												setCodigoObjeto(itemElementEncomendaRetorno.getElementsByTagName("CodigoObjeto") == null ? "" : itemElementEncomendaRetorno.getElementsByTagName("CodigoObjeto").item(0).getTextContent());
+										
+											encomendaRetorno.
+												setSerieNotaFiscal(itemElementEncomendaRetorno.getElementsByTagName("SerieNotaFiscal").item(0).getTextContent());
+											
+											encomendaRetorno.
+												setNotaFiscal(Integer.parseInt(itemElementEncomendaRetorno.getElementsByTagName("NotaFiscal").item(0).getTextContent()));
+											
+											encomendaRetorno
+												.setPedido(itemElementEncomendaRetorno.getElementsByTagName("Pedido").item(0).getTextContent());
+										
+							//========================== Mont a lista de statusTotal =====================================================
+											NodeList listaArrayStatusTotal = itemElementEncomendaRetorno.getElementsByTagName("ArrayStatusTotal");
+											encomendaRetorno.setListaStatusTotal(new ArrayList<StatusTotal>());
+											for(int k = 0; k < listaArrayStatusTotal.getLength(); k++) {
+												Node itemStatusTotal = listaArrayStatusTotal.item(j);
+												StatusTotal statusTotal = new StatusTotal();
+												if (itemStatusTotal.getNodeType() == Node.ELEMENT_NODE) {
+													Element itemElementStatusTotal = (Element) itemStatusTotal;
+													statusTotal.
+														setCodStatus(Integer.
+																parseInt(itemElementStatusTotal.getElementsByTagName("CodStatus").item(0).getTextContent()));
+												
+													Date dataStatus = sdf.parse(itemElementStatusTotal.getElementsByTagName("DataStatus").item(0).getTextContent());
+													Calendar calendarDataStatus = Calendar.getInstance();
+													calendarDataStatus.setTime(dataStatus);
+													
+													statusTotal.
+														setDataStatus(calendarDataStatus);
+													
+													statusTotal.
+														setDescStatus(itemElementStatusTotal.getElementsByTagName("DescStatus").item(0).getTextContent());
+													
+													encomendaRetorno.getListaStatusTotal().add(statusTotal);
+												
+													
+												}
+											}
+											
+							//========================== Mont a lista de statusTotal =====================================================
+				
+											
+											NodeList listaArrayStatusEct = itemElementEncomendaRetorno.getElementsByTagName("ArrayStatusEct");
+											encomendaRetorno.setListaStatusEct(new ArrayList <StatusEct>());
+											for(int k = 0; k < listaArrayStatusEct.getLength(); k++) {
+												Node itemStatusEct = listaArrayStatusEct.item(j);
+												StatusEct statusEct = new StatusEct();
+												if (itemStatusEct.getNodeType() == Node.ELEMENT_NODE) {
+													Element itemElementStatusEct = (Element) itemStatusEct;
+
+													statusEct.
+														setEctCidade(itemElementStatusEct.getElementsByTagName("EctCidade").item(0).getTextContent());
+													
+													statusEct.
+														setEctCodigo(itemElementStatusEct.getElementsByTagName("EctCodigo").item(0).getTextContent());
+													
+													statusEct.
+														setEctComentario(itemElementStatusEct.getElementsByTagName("EctComentario").item(0).getTextContent());
+													
+													statusEct.
+														setEctData(DataUtil.stringToDate(itemElementStatusEct.getElementsByTagName("ectData").item(0).getTextContent(), "yyyy-MM-dd") );
+													
+													statusEct.setEctDescricao("EctDescricao");
+													
+													encomendaRetorno.getListaStatusEct().add(statusEct);
+												}
+												
+												
+
+											}
+										}
+										
+										loteRetorno.getListaEncomendaRetorno().add(encomendaRetorno);
+									}
+								}
+								
+								
+								
+								obterTrackingResponse.getListaLoteRetorno().add(loteRetorno);
+								
+							}
+						}
+						
+					}
+
 					
 				}
 			}

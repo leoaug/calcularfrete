@@ -6,19 +6,26 @@
  */
 
 package br.com.onsys.webservice.coletas;
- 
+
+import java.util.List;
+
 public class LoteRetorno  implements java.io.Serializable {
-    private org.apache.axis.types.NonNegativeInteger codRetorno;
+   
+	private static final long serialVersionUID = 1L;
+
+	private Integer codRetorno;
 
     private java.util.Date dataGeracao;
 
     private br.com.onsys.webservice.coletas.EncomendaRetorno[] arrayEncomendaRetorno;
+    
+    private List <EncomendaRetorno> listaEncomendaRetorno;
 
     public LoteRetorno() {
     }
 
     public LoteRetorno(
-           org.apache.axis.types.NonNegativeInteger codRetorno,
+           Integer codRetorno,
            java.util.Date dataGeracao,
            br.com.onsys.webservice.coletas.EncomendaRetorno[] arrayEncomendaRetorno) {
            this.codRetorno = codRetorno;
@@ -26,13 +33,22 @@ public class LoteRetorno  implements java.io.Serializable {
            this.arrayEncomendaRetorno = arrayEncomendaRetorno;
     }
 
+    
 
-    /**
+    public List<EncomendaRetorno> getListaEncomendaRetorno() {
+		return listaEncomendaRetorno;
+	}
+
+	public void setListaEncomendaRetorno(List<EncomendaRetorno> listaEncomendaRetorno) {
+		this.listaEncomendaRetorno = listaEncomendaRetorno;
+	}
+
+	/**
      * Gets the codRetorno value for this LoteRetorno.
      * 
      * @return codRetorno
      */
-    public org.apache.axis.types.NonNegativeInteger getCodRetorno() {
+    public Integer getCodRetorno() {
         return codRetorno;
     }
 
@@ -42,7 +58,7 @@ public class LoteRetorno  implements java.io.Serializable {
      * 
      * @param codRetorno
      */
-    public void setCodRetorno(org.apache.axis.types.NonNegativeInteger codRetorno) {
+    public void setCodRetorno(Integer codRetorno) {
         this.codRetorno = codRetorno;
     }
 

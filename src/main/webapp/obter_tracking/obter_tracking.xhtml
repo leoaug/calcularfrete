@@ -14,16 +14,41 @@
 	<ui:define name="content">
 	
 	
-		<p:panel header=".:: Obter tracking ::.">
+		<p:panel header=".:: Consultar tracking ::.">
 			<h:form>	
 				<p:growl showDetail="true"/>
 				<div class="ui-fluid">
 	       			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
-	       			 
+	       			 	       	<p:outputLabel for="agData" value="Data da entrega Agendada" />
+        						<p:calendar id="agData" value="#{obterTrackingController.obterTrackingRequest.dataConsulta}" showTodayButton="true" pattern="yyyy-MM-dd" />
 	       			 </p:panelGrid>
 	       		</div>
+	       		<p:commandButton value=".:: Obter Tracking::." action="#{obterTrackingController.obterTracking}" update="@all" />
 	       	</h:form>
 	    </p:panel>
+    
+    	<br/>
+    	
+    	<p:panel header=".:: Resultado tracking ::.">
+    		<h:outputText value="#{obterTrackingController.obterTrackingResponse.codigoProc}" />
+    		 <br/>
+    		 
+    		 <ui:repeat var="loteRetorno" value="#{obterTrackingController.obterTrackingResponse.listaLoteRetorno}">
+    		 	<h:outputText value="#{loteRetorno.codRetorno}"/>
+    		  	<br/>
+    		 	<h:outputText value="#{loteRetorno.dataGeracao}">
+    		 		<f:convertDateTime pattern="yyyy-MM-dd"/>
+    		 	</h:outputText>
+    		 	
+    		 	<ui:repeat var="encomendaRetorno" value="#{loteRetorno.listaEncomendaRetorno}">
+    		 		<h:outputText value="#{encomendaRetorno.awb}" />
+    		 	
+    		 	</ui:repeat>
+    		 	
+    		 
+    		 </ui:repeat>
+    		
+    	</p:panel>
     
  	</ui:define>
  

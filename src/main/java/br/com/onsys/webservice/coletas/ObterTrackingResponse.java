@@ -6,17 +6,25 @@
  */
 
 package br.com.onsys.webservice.coletas;
- 
+
+import java.util.List;
+
 public class ObterTrackingResponse  implements java.io.Serializable {
-    private org.apache.axis.types.NonNegativeInteger codigoProc;
+    
+	
+	private static final long serialVersionUID = 1L;
+
+	private Integer codigoProc;
 
     private br.com.onsys.webservice.coletas.LoteRetorno[] arrayLoteRetorno;
+    
+    private List <LoteRetorno> listaLoteRetorno;
 
     public ObterTrackingResponse() {
     }
 
     public ObterTrackingResponse(
-           org.apache.axis.types.NonNegativeInteger codigoProc,
+           Integer codigoProc,
            br.com.onsys.webservice.coletas.LoteRetorno[] arrayLoteRetorno) {
            this.codigoProc = codigoProc;
            this.arrayLoteRetorno = arrayLoteRetorno;
@@ -28,7 +36,7 @@ public class ObterTrackingResponse  implements java.io.Serializable {
      * 
      * @return codigoProc
      */
-    public org.apache.axis.types.NonNegativeInteger getCodigoProc() {
+    public Integer getCodigoProc() {
         return codigoProc;
     }
 
@@ -38,7 +46,7 @@ public class ObterTrackingResponse  implements java.io.Serializable {
      * 
      * @param codigoProc
      */
-    public void setCodigoProc(org.apache.axis.types.NonNegativeInteger codigoProc) {
+    public void setCodigoProc(Integer codigoProc) {
         this.codigoProc = codigoProc;
     }
 
@@ -62,7 +70,21 @@ public class ObterTrackingResponse  implements java.io.Serializable {
         this.arrayLoteRetorno = arrayLoteRetorno;
     }
 
-    private java.lang.Object __equalsCalc = null;
+    
+    
+    
+    public List<LoteRetorno> getListaLoteRetorno() {
+		return listaLoteRetorno;
+	}
+
+	public void setListaLoteRetorno(List<LoteRetorno> listaLoteRetorno) {
+		this.listaLoteRetorno = listaLoteRetorno;
+	}
+
+
+
+
+	private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof ObterTrackingResponse)) return false;
         ObterTrackingResponse other = (ObterTrackingResponse) obj;
