@@ -76,14 +76,14 @@
 		
 		<p:tabMenu activeIndex="#{param.i}">
 		    <p:menuitem value=".:: Calcular Frete ::." 
-		    		    outcome="/calcular_frete/calcular_frete.xhtml" 
+		    		    outcome="/calcular_frete/calcular_frete.xhtml" ajax="false"
 		    		    icon="fa fa-file" >
 		    		    
 		    		    <f:param name="i" value="0" />
 		    		    
 		    </p:menuitem>		       
 		    <p:menuitem value=".:: Registrar Coleta ::." 
-		    			outcome="/registrar_coleta/registrar_coleta.xhtml" 
+		    			outcome="/registrar_coleta/registrar_coleta.xhtml" ajax="false"
 		    			icon="fa fa-file" >
 		    			
 		    			<f:param name="i" value="1" />
@@ -91,7 +91,7 @@
 		    </p:menuitem>	
 		    
 		     <p:menuitem value=".:: Obter Tracking ::." 
-		    			outcome="/obter_tracking/obter_tracking.xhtml" 
+		    			outcome="/obter_tracking/obter_tracking.xhtml" ajax="false"
 		    			icon="fa fa-file" >
 		    			
 		    			<f:param name="i" value="2" />

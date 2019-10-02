@@ -87,7 +87,7 @@ public class JAXBUtil implements Serializable {
 						setCodigoProc(Integer.parseInt(eElement.getElementsByTagName("CodigoProc").item(0).getTextContent()));
 
 					
-					NodeList listaArrayLoteRetorno = eElement.getElementsByTagName("ArrayLoteRetorno");
+					NodeList listaArrayLoteRetorno = eElement.getElementsByTagName("ArrayLoteRetorno").item(0).getChildNodes();
 					
 					obterTrackingResponse.setListaLoteRetorno(new ArrayList<LoteRetorno>());
 					

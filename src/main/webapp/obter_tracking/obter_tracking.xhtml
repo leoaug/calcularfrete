@@ -15,7 +15,7 @@
 	
 	
 		<p:panel header=".:: Consultar tracking ::.">
-			<h:form>	
+			<h:form id="idFormConsultarTracking">	
 				<p:growl showDetail="true"/>
 				<div class="ui-fluid">
 	       			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
@@ -23,14 +23,16 @@
         						<p:calendar id="agData" value="#{obterTrackingController.obterTrackingRequest.dataConsulta}" showTodayButton="true" pattern="yyyy-MM-dd" />
 	       			 </p:panelGrid>
 	       		</div>
-	       		<p:commandButton value=".:: Obter Tracking::." action="#{obterTrackingController.obterTracking}" update="@all" />
+	       		<p:commandButton value=".:: Obter Tracking::." 
+	       						action="#{obterTrackingController.obterTracking}" 
+	       						update="idFormResultadoTracking idPanelFormResultadoTracking idFormConsultarTracking" />
 	       	</h:form>
 	    </p:panel>
     
     	<br/>
     	
-    	<p:panel header=".:: Resultado tracking ::.">
-    	<h:form> 
+    	<p:panel id="idPanelFormResultadoTracking" header=".:: Resultado tracking ::.">
+    	<h:form id="idFormResultadoTracking"> 
     		 <h:outputText value="#{obterTrackingController.obterTrackingResponse.codigoProc}" />
     		 <br/>
     		 
@@ -70,71 +72,81 @@
     		 	    
     		 	    <br/>
     		 	    
-    		 	    <h:outputText value="Status Total: " />
-    		 	    <ui:repeat var="statusTotal" value="#{encomendaRetorno.listaStatusTotal}">
+    		 	    <p:dataTable var="statusTotal" value="#{encomendaRetorno.listaStatusTotal}"> 
+    		 	    	<f:facet name="header">
+    		 	    		  <h:outputText value="Status Total: " />   		 	    		
+    		 	    	</f:facet> 
     		 	    	 
-    		 	    	 <br/> 
+    		 	    	<p:column headerText="Código Status">
+           		 	    	 <h:outputText value="#{statusTotal.codStatus}" />
+    					</p:column>
     		 	    	  
-    		 	    	 <h:outputText value="#{statusTotal.codStatus}" />
     		 	    	
-    		 	    	 <br/>	
-    		 	    	
-						 <h:outputText value="#{statusTotal.descStatus}" />
+    		 	    	<p:column headerText="Descrição Status">   		 	    	  		 	    	
+						 	<h:outputText value="#{statusTotal.descStatus}" />
+						</p:column>
 						
-						 <br/>
-						
-						 <h:outputText value="#{statusTotal.dataStatus.getTime()}" />
-						 	
+						<p:column headerText="Descrição Status"> 
+						 	<h:outputText value="#{statusTotal.dataStatus.getTime()}" >
+						 		<f:convertDateTime pattern="yyyy-MM-dd" />
+						 	</h:outputText>
+						 </p:column>	
     		 	    
-    		 	    </ui:repeat>
+    		 	    </p:dataTable>
     		 	    
-    		 	    <h:outputText value="Status Ect: " />
-    		 	    <ui:repeat var="statusEct" value="#{encomendaRetorno.listaStatusEct}">
+    		 	    <p:dataTable var="statusEct" value="#{encomendaRetorno.listaStatusEct}"> 
+    		 	    	<f:facet name="header">
+    		 	    		  <h:outputText value="Status Ect: " />
+    		 	    		
+    		 	    	</f:facet>
     		 	    
-    		 	    	<h:outputText value="#{statusEct.ectTipo}" />
+    		 	    	<p:column headerText="Etc Tipo">    		 	    	
+    		 	    		<h:outputText value="#{statusEct.ectTipo}" />
+    		 	    	</p:column>
     		 	    	
-    		 	    	<br/>
-    		 	    	
-    		 	    	<h:outputText value="#{statusEct.ectStatus}" />
-    		 	    	
-    		 	    	<br/>
+    		 	    	<p:column headerText="Etc Status">    		 	    	  		 	    	
+    		 	    		<h:outputText value="#{statusEct.ectStatus}" />
+    		 	    	</p:column>
 					
-						<h:outputText value="#{statusEct.ectData}" >
-						 	<f:convertDateTime pattern="yyyy-MM-dd"/>
-						</h:outputText>
+					    <p:column headerText="Etc Data">    		 	    	  		 	    						
+							<h:outputText value="#{statusEct.ectData}" >
+							 	<f:convertDateTime pattern="yyyy-MM-dd"/>
+							</h:outputText>
+						</p:column>
 						
-						<br/>
+						<p:column headerText="Etc Hora">    		 	    	  		 	    												
+							<h:outputText value="#{statusEct.ectHora.getAsCalendar().getTime()}" >
+							 	<f:convertDateTime pattern="HH:mm:ss"/>
+							</h:outputText>
+						</p:column>
 						
-						<h:outputText value="#{statusEct.ectHora.getAsCalendar().getTime()}" >
-						 	<f:convertDateTime pattern="HH:mm:ss"/>
-						</h:outputText>
+						<p:column headerText="Etc DEscrição"> 
+							<h:outputText value="#{statusEct.ectDescricao}" />
+						</p:column>
+						
+					    <p:column headerText="Etc Comentário"> 						
+							<h:outputText value="#{statusEct.ectComentario}" />
+						</p:column>
+						
+						<p:column headerText="Etc Local"> 						
+							<h:outputText value="#{statusEct.ectLocal}" />
+						</p:column>
 					
-						<br/>
-						
-						<h:outputText value="#{statusEct.ectDescricao}" />
-						
-						<br/>
-						
-						<h:outputText value="#{statusEct.ectComentario}" />
-						
-						<br/>
-						
-						<h:outputText value="#{statusEct.ectLocal}" />
-						
-						<br/>
+						<p:column headerText="Etc Código"> 											
+					    	<h:outputText value="#{statusEct.ectCodigo}" />
+						</p:column>
 					
-					    <h:outputText value="#{statusEct.ectCodigo}" />
+						<p:column headerText="Etc Cidade"> 																
+							<h:outputText value="#{statusEct.ectCidade}" />
+						</p:column>
 						
-						<br/>
-					
-						<h:outputText value="#{statusEct.ectCidade}" />
-						
-						<br/>
+						<p:column headerText="Etc Uf"> 																
 							
-						<h:outputText value="#{statusEct.ectUf}" />
-											
+							<h:outputText value="#{statusEct.ectUf}" />
+						</p:column>					
     		 	    
-    		 	    </ui:repeat>
+    		 	    
+    		 	    </p:dataTable>
     		 	
     		 	</ui:repeat>
     		 	

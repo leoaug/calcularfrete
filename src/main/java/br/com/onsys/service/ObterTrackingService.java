@@ -44,8 +44,8 @@ public class ObterTrackingService implements Serializable {
 																					"c1260311", "95350120", "localhost", 40080);
 			*/
 			String response =  WebServiceUtil.carregaXMLWebServices(request,
-																	OnsysConstantes.USER_PROD, 
-		 															OnsysConstantes.PASS_PROD,
+																	OnsysConstantes.USER_DESENV, 
+		 															OnsysConstantes.PASS_DESENV,
 																	OnsysConstantes.WSDL_REGISTRA_COLETA_OBTER_TRACKING, 
 																	OnsysConstantes.WSDL_OBTER_TRACKING_ACTION);
 			return JAXBUtil.preencherObterTrackingResponse(response);

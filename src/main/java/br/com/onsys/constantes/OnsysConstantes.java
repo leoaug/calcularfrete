@@ -2,8 +2,8 @@ package br.com.onsys.constantes;
 
 public class OnsysConstantes {
 
-	//public static final String USER_DESENV = "btf-qa";
-	//public static final String PASS_DESENV = "8ZJPQbkv";
+	public static final String USER_DESENV = "btf-qa";
+	public static final String PASS_DESENV = "8ZJPQbkv";
 	 
 	public static final String USER_PROD = "btf-prod";
 	public static final String PASS_PROD = "7tEIPWLJ";
