@@ -60,6 +60,9 @@ public class CalcularFreteService implements Serializable {
 				String peso = calcularFreteBean.getPeso() == null ? "?" : calcularFreteBean.getPeso();		
 				String valorDeclarado = calcularFreteBean.getValorDeclarado() == null ? "?" : calcularFreteBean.getValorDeclarado();
 				String tipoEntrega = calcularFreteBean.getTipoEntrega() == null ? "?" : calcularFreteBean.getTipoEntrega();
+				String altura = calcularFreteBean.getAltura() == null ? "?" : calcularFreteBean.getAltura();
+				String largura = calcularFreteBean.getLargura() == null ? "?" : calcularFreteBean.getLargura();
+				String profundidade = calcularFreteBean.getProfundidade() == null ? "?" : calcularFreteBean.getProfundidade();
 				
 				String request = "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:calcularFrete\">" +
 								 "  <soapenv:Header/> " +
@@ -73,13 +76,13 @@ public class CalcularFreteService implements Serializable {
 										        "<ValorDeclarado xsi:type=\"xsd:string\">"+ valorDeclarado +"</ValorDeclarado> " +
 										        "<TipoEntrega xsi:type=\"xsd:nonNegativeInteger\">"+ tipoEntrega +"</TipoEntrega> " +
 										            //<!--Optional:-->
-										        "<ServicoCOD xsi:type=\"xsd:boolean\">?</ServicoCOD> " +
+										        "<ServicoCOD xsi:type=\"xsd:boolean\">"+calcularFreteBean.isServicoCOD()+"</ServicoCOD> " +
 										           // <!--Optional:-->
-										        "<Altura xsi:type=\"xsd:nonNegativeInteger\">?</Altura> " +
+										        "<Altura xsi:type=\"xsd:nonNegativeInteger\">"+ altura +"</Altura> " +
 										           // <!--Optional:-->
-										        "<Largura xsi:type=\"xsd:nonNegativeInteger\">?</Largura> " +
+										        "<Largura xsi:type=\"xsd:nonNegativeInteger\">"+ largura +"</Largura> " +
 										           // <!--Optional:-->
-										        "<Profundidade xsi:type=\"xsd:nonNegativeInteger\">?</Profundidade> " +
+										        "<Profundidade xsi:type=\"xsd:nonNegativeInteger\">"+ profundidade +"</Profundidade> " +
 									      "</calcularFreteRequest> " +
 								      "</urn:calcularFrete> " +
 								   "</soapenv:Body> " +
