@@ -1,6 +1,6 @@
 package br.com.onsys.service;
 
-
+ 
 import java.io.Serializable;
 import org.springframework.stereotype.Service;
 import br.com.onsys.bean.CalcularFreteBean;

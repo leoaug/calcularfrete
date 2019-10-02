@@ -9,7 +9,7 @@ import br.com.onsys.webservice.coletas.RegistraColetaRequest;
 import br.com.onsys.webservice.coletas.RegistraColetaResponse;
 import br.com.onsys.webservice.coletas.Encomenda;
 import br.com.onsys.webservice.coletas.NFe;
-
+ 
 @Service
 public class RegistraColetaService implements Serializable {
 
