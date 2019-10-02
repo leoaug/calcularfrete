@@ -33,6 +33,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import br.com.onsys.bean.CalcularFreteBean;
+import br.com.onsys.constantes.OnsysConstantes;
 import br.com.onsys.service.util.WebServiceUtil;
 import br.com.onsys.util.JAXBUtil;
 import br.com.onsys.webservice.CalcularFreteRequest;
@@ -84,16 +85,27 @@ public class CalcularFreteService implements Serializable {
 								   "</soapenv:Body> " +
 								"</soapenv:Envelope> ";
 				
-				String WSDL = "https://edi.totalexpress.com.br/webservice_calculo_frete.php?wsdl";
 				
 				/**
 				 * caso a rede tenha proxy, usar esse método
-				 */
-				String responseComproxy =  WebServiceUtil.carregaXMLWebServicesComProxy(request,"btf-qa","8ZJPQbkv",WSDL,"calcularFrete","c1260311","95350120","localhost",40080);
-				
-				//String response =  WebServiceUtil.carregaXMLWebServices(request,"btf-qa","8ZJPQbkv",WSDL,"calcularFrete");
+				 
+				String responseComproxy =  WebServiceUtil.carregaXMLWebServicesComProxy(request,
+																					   OnsysConstantes.USER_DESENV,
+																					   OnsysConstantes.PASS_DESENV,
+																					   OnsysConstantes.WSDL_CALCULO_FRETE,
+																					   OnsysConstantes.WSDL_CALCULO_FRETE_ACTION,
+																					   "c1260311",
+																					   "95350120",
+																					   "localhost",
+																					   40080);
+				*/
+				String response =  WebServiceUtil.carregaXMLWebServices(request,
+																		OnsysConstantes.USER_DESENV,
+																		OnsysConstantes.PASS_DESENV,
+																		OnsysConstantes.WSDL_CALCULO_FRETE,
+																		OnsysConstantes.WSDL_CALCULO_FRETE_ACTION);
 						
-				CalcularFreteResponse calcularFreteResponse = JAXBUtil.preecherCalcularFreteResponse(responseComproxy);
+				CalcularFreteResponse calcularFreteResponse = JAXBUtil.preecherCalcularFreteResponse(response);
 				
 								
 				return calcularFreteResponse;

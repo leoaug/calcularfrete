@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Service;
 
+import br.com.onsys.constantes.OnsysConstantes;
 import br.com.onsys.service.util.WebServiceUtil;
 import br.com.onsys.util.DataUtil;
 import br.com.onsys.util.JAXBUtil;
@@ -34,11 +35,20 @@ public class ObterTrackingService implements Serializable {
 					"</soapenv:Envelope>";
 			
 			
-
-			String responseComproxy =  WebServiceUtil.carregaXMLWebServicesComProxy(request,"btf-qa","8ZJPQbkv","https://edi.totalexpress.com.br/webservice24.php?wsdl","ObterTracking",
-					"c1260311", "95350120", "localhost", 40080);
-			
-			return JAXBUtil.preencherObterTrackingResponse(responseComproxy);
+			/*
+			String responseComproxy =  WebServiceUtil.carregaXMLWebServicesComProxy(request,
+																					OnsysConstantes.USER_DESENV, 
+																					OnsysConstantes.PASS_DESENV,
+																					OnsysConstantes.WSDL_REGISTRA_COLETA_OBTER_TRACKING, 
+																					OnsysConstantes.WSDL_OBTER_TRACKING_ACTION,
+																					"c1260311", "95350120", "localhost", 40080);
+			*/
+			String response =  WebServiceUtil.carregaXMLWebServices(request,
+																	OnsysConstantes.USER_DESENV, 
+																	OnsysConstantes.PASS_DESENV,
+																	OnsysConstantes.WSDL_REGISTRA_COLETA_OBTER_TRACKING, 
+																	OnsysConstantes.WSDL_OBTER_TRACKING_ACTION);
+			return JAXBUtil.preencherObterTrackingResponse(response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
