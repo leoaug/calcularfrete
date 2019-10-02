@@ -72,8 +72,8 @@ public class JAXBUtil implements Serializable {
 			Element root = document.getDocumentElement();
 			System.out.println(root.getNodeName());
 	
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+			SimpleDateFormat sdfAnoMesDia = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdfHoraMinSeg = new SimpleDateFormat("HH:mm:ss");
 			
 			NodeList nList = document.getElementsByTagName("ObterTrackingResponse");
 			
@@ -100,12 +100,16 @@ public class JAXBUtil implements Serializable {
 							if(itemElement.getAttribute("LoteRetorno") != null) {
 
 								loteRetorno.
-									setCodRetorno(Integer.parseInt(itemElement.getElementsByTagName("CodRetorno").item(0).getTextContent()));
+									setCodRetorno(itemElement.getElementsByTagName("CodRetorno").item(0) == null ? null : Integer.parseInt(itemElement.getElementsByTagName("CodRetorno").item(0).getTextContent()));
 								
-								NodeList listaArrayEncomendaRetorno = itemElement.getElementsByTagName("ArrayEncomendaRetorno");
+								loteRetorno.
+									setDataGeracao(itemElement.getElementsByTagName("DataGeracao").item(0) == null ? null : DataUtil.stringToDate(itemElement.getElementsByTagName("DataGeracao").item(0).getTextContent(), "yyyy-MM-dd") );
+														
+								
+								NodeList listaArrayEncomendaRetorno = itemElement.getElementsByTagName("ArrayEncomendaRetorno").item(0).getChildNodes();
 								loteRetorno.setListaEncomendaRetorno(new ArrayList<EncomendaRetorno>());
 								
-								for(int j = 0; i < listaArrayEncomendaRetorno.getLength(); i++) {
+								for(int j = 0; j < listaArrayEncomendaRetorno.getLength(); j++) {
 									Node itemEncomenda = listaArrayEncomendaRetorno.item(j);
 									EncomendaRetorno encomendaRetorno = new EncomendaRetorno();
 									if (itemEncomenda.getNodeType() == Node.ELEMENT_NODE) {
@@ -119,7 +123,7 @@ public class JAXBUtil implements Serializable {
 												setAwb(Integer.parseInt(itemElementEncomendaRetorno.getElementsByTagName("Awb").item(0).getTextContent()));
 											
 											encomendaRetorno.
-												setCodigoObjeto(itemElementEncomendaRetorno.getElementsByTagName("CodigoObjeto") == null ? "" : itemElementEncomendaRetorno.getElementsByTagName("CodigoObjeto").item(0).getTextContent());
+												setCodigoObjeto(itemElementEncomendaRetorno.getElementsByTagName("CodigoObjeto").item(0) == null ? "" : itemElementEncomendaRetorno.getElementsByTagName("CodigoObjeto").item(0).getTextContent());
 										
 											encomendaRetorno.
 												setSerieNotaFiscal(itemElementEncomendaRetorno.getElementsByTagName("SerieNotaFiscal").item(0).getTextContent());
@@ -131,18 +135,21 @@ public class JAXBUtil implements Serializable {
 												.setPedido(itemElementEncomendaRetorno.getElementsByTagName("Pedido").item(0).getTextContent());
 										
 							//========================== Mont a lista de statusTotal =====================================================
-											NodeList listaArrayStatusTotal = itemElementEncomendaRetorno.getElementsByTagName("ArrayStatusTotal");
+											NodeList listaArrayStatusTotal = itemElementEncomendaRetorno.getElementsByTagName("ArrayStatusTotal").item(0).getChildNodes();
 											encomendaRetorno.setListaStatusTotal(new ArrayList<StatusTotal>());
 											for(int k = 0; k < listaArrayStatusTotal.getLength(); k++) {
-												Node itemStatusTotal = listaArrayStatusTotal.item(j);
-												StatusTotal statusTotal = new StatusTotal();
+												Node itemStatusTotal = listaArrayStatusTotal.item(k);
+												
 												if (itemStatusTotal.getNodeType() == Node.ELEMENT_NODE) {
+													
+													StatusTotal statusTotal = new StatusTotal();
+													
 													Element itemElementStatusTotal = (Element) itemStatusTotal;
 													statusTotal.
 														setCodStatus(Integer.
 																parseInt(itemElementStatusTotal.getElementsByTagName("CodStatus").item(0).getTextContent()));
 												
-													Date dataStatus = sdf.parse(itemElementStatusTotal.getElementsByTagName("DataStatus").item(0).getTextContent());
+													Date dataStatus = sdfAnoMesDia.parse(itemElementStatusTotal.getElementsByTagName("DataStatus").item(0).getTextContent());
 													Calendar calendarDataStatus = Calendar.getInstance();
 													calendarDataStatus.setTime(dataStatus);
 													
@@ -159,43 +166,64 @@ public class JAXBUtil implements Serializable {
 											}
 											
 							//========================== Mont a lista de statusTotal =====================================================
-				
-											
-											NodeList listaArrayStatusEct = itemElementEncomendaRetorno.getElementsByTagName("ArrayStatusEct");
-											encomendaRetorno.setListaStatusEct(new ArrayList <StatusEct>());
-											for(int k = 0; k < listaArrayStatusEct.getLength(); k++) {
-												Node itemStatusEct = listaArrayStatusEct.item(j);
-												StatusEct statusEct = new StatusEct();
-												if (itemStatusEct.getNodeType() == Node.ELEMENT_NODE) {
-													Element itemElementStatusEct = (Element) itemStatusEct;
 
-													statusEct.
+											if(itemElementEncomendaRetorno.getElementsByTagName("ArrayStatusEct").item(0) != null) {
+												NodeList listaArrayStatusEct = itemElementEncomendaRetorno.getElementsByTagName("ArrayStatusEct").item(0).getChildNodes();;
+												encomendaRetorno.setListaStatusEct(new ArrayList <StatusEct>());
+												for(int k = 0; k < listaArrayStatusEct.getLength(); k++) {
+													Node itemStatusEct = listaArrayStatusEct.item(k);
+													StatusEct statusEct = new StatusEct();
+													if (itemStatusEct.getNodeType() == Node.ELEMENT_NODE) {
+														Element itemElementStatusEct = (Element) itemStatusEct;
+
+														statusEct.
 														setEctCidade(itemElementStatusEct.getElementsByTagName("EctCidade").item(0).getTextContent());
-													
-													statusEct.
+
+														statusEct.
 														setEctCodigo(itemElementStatusEct.getElementsByTagName("EctCodigo").item(0).getTextContent());
-													
-													statusEct.
+
+														statusEct.
 														setEctComentario(itemElementStatusEct.getElementsByTagName("EctComentario").item(0).getTextContent());
-													
-													statusEct.
+
+														statusEct.
 														setEctData(DataUtil.stringToDate(itemElementStatusEct.getElementsByTagName("ectData").item(0).getTextContent(), "yyyy-MM-dd") );
-													
-													statusEct.setEctDescricao("EctDescricao");
-													
-													encomendaRetorno.getListaStatusEct().add(statusEct);
+
+														statusEct.
+														setEctDescricao(itemElementStatusEct.getElementsByTagName("EctDescricao").item(0).getTextContent());
+
+														Date dataEtcHora = sdfHoraMinSeg.parse(itemElementStatusEct.getElementsByTagName("EctHora").item(0).getTextContent());
+														Calendar calendarDataEtcHora = Calendar.getInstance();
+														calendarDataEtcHora.setTime(dataEtcHora);
+
+														statusEct.
+														setEctHora(new org.apache.axis.types.Time(calendarDataEtcHora));
+
+														statusEct.
+														setEctLocal(itemElementStatusEct.getElementsByTagName("EctLocal").item(0).getTextContent());
+
+														statusEct.
+														setEctStatus(itemElementStatusEct.getElementsByTagName("EctStatus").item(0).getTextContent());
+
+														statusEct.
+														setEctTipo(itemElementStatusEct.getElementsByTagName("EctTipo").item(0).getTextContent());
+
+														statusEct.
+														setEctUf(itemElementStatusEct.getElementsByTagName("EctUf").item(0).getTextContent());
+
+														encomendaRetorno.getListaStatusEct().add(statusEct);
+													}
+
+
 												}
-												
-												
 
 											}
+											
 										}
 										
 										loteRetorno.getListaEncomendaRetorno().add(encomendaRetorno);
 									}
 								}
-								
-								
+							
 								
 								obterTrackingResponse.getListaLoteRetorno().add(loteRetorno);
 								

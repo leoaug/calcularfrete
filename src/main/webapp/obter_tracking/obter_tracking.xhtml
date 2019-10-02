@@ -30,7 +30,8 @@
     	<br/>
     	
     	<p:panel header=".:: Resultado tracking ::.">
-    		<h:outputText value="#{obterTrackingController.obterTrackingResponse.codigoProc}" />
+    	<h:form> 
+    		 <h:outputText value="#{obterTrackingController.obterTrackingResponse.codigoProc}" />
     		 <br/>
     		 
     		 <ui:repeat var="loteRetorno" value="#{obterTrackingController.obterTrackingResponse.listaLoteRetorno}">
@@ -40,14 +41,106 @@
     		 		<f:convertDateTime pattern="yyyy-MM-dd"/>
     		 	</h:outputText>
     		 	
+    		 	<br/>
+    		 	
+    		 	<h:outputText value="Encomenda Retorno " />
+    		 	<br/>
     		 	<ui:repeat var="encomendaRetorno" value="#{loteRetorno.listaEncomendaRetorno}">
     		 		<h:outputText value="#{encomendaRetorno.awb}" />
+    		 		
+    		 		<br/>
+    		 	
+    		 		<h:outputText value="#{encomendaRetorno.pedido}" />
+    		 		
+    		 		<br/>
+    		 		
+    		 	    <h:outputText value="#{encomendaRetorno.notaFiscal}" />
+    		 		
+					<br/>
+    		 		
+    		 	    <h:outputText value="#{encomendaRetorno.serieNotaFiscal}" />
+
+					<br/>
+    		 		
+    		 	    <h:outputText value="#{encomendaRetorno.idCliente}" />
+
+					<br/>
+    		 		
+    		 	    <h:outputText value="#{encomendaRetorno.codigoObjeto}" />
+    		 	    
+    		 	    <br/>
+    		 	    
+    		 	    <h:outputText value="Status Total: " />
+    		 	    <ui:repeat var="statusTotal" value="#{encomendaRetorno.listaStatusTotal}">
+    		 	    	 
+    		 	    	 <br/> 
+    		 	    	  
+    		 	    	 <h:outputText value="#{statusTotal.codStatus}" />
+    		 	    	
+    		 	    	 <br/>	
+    		 	    	
+						 <h:outputText value="#{statusTotal.descStatus}" />
+						
+						 <br/>
+						
+						 <h:outputText value="#{statusTotal.dataStatus.getTime()}" />
+						 	
+    		 	    
+    		 	    </ui:repeat>
+    		 	    
+    		 	    <h:outputText value="Status Ect: " />
+    		 	    <ui:repeat var="statusEct" value="#{encomendaRetorno.listaStatusEct}">
+    		 	    
+    		 	    	<h:outputText value="#{statusEct.ectTipo}" />
+    		 	    	
+    		 	    	<br/>
+    		 	    	
+    		 	    	<h:outputText value="#{statusEct.ectStatus}" />
+    		 	    	
+    		 	    	<br/>
+					
+						<h:outputText value="#{statusEct.ectData}" >
+						 	<f:convertDateTime pattern="yyyy-MM-dd"/>
+						</h:outputText>
+						
+						<br/>
+						
+						<h:outputText value="#{statusEct.ectHora.getAsCalendar().getTime()}" >
+						 	<f:convertDateTime pattern="HH:mm:ss"/>
+						</h:outputText>
+					
+						<br/>
+						
+						<h:outputText value="#{statusEct.ectDescricao}" />
+						
+						<br/>
+						
+						<h:outputText value="#{statusEct.ectComentario}" />
+						
+						<br/>
+						
+						<h:outputText value="#{statusEct.ectLocal}" />
+						
+						<br/>
+					
+					    <h:outputText value="#{statusEct.ectCodigo}" />
+						
+						<br/>
+					
+						<h:outputText value="#{statusEct.ectCidade}" />
+						
+						<br/>
+							
+						<h:outputText value="#{statusEct.ectUf}" />
+											
+    		 	    
+    		 	    </ui:repeat>
     		 	
     		 	</ui:repeat>
     		 	
     		 
     		 </ui:repeat>
-    		
+    	</h:form>	
     	</p:panel>
     
  	</ui:define>
