@@ -33,21 +33,26 @@ public class ObterTrackingService implements Serializable {
 					"      </urn:ObterTracking>\n" + 
 					"   </soapenv:Body>\n" + 
 					"</soapenv:Envelope>";
-			
-			
 			/*
-			String responseComproxy =  WebServiceUtil.carregaXMLWebServicesComProxy(request,
+			String responseComproxy =  WebServiceUtil.carregaXMLWebServicesComProxyTimeout(request,
 																					OnsysConstantes.USER_DESENV, 
 																					OnsysConstantes.PASS_DESENV,
 																					OnsysConstantes.WSDL_REGISTRA_COLETA_OBTER_TRACKING, 
 																					OnsysConstantes.WSDL_OBTER_TRACKING_ACTION,
-																					"c1260311", "95350120", "localhost", 40080);
+																					"c1260311", 
+																					"95350120", 
+																					"localhost", 
+																					40080,
+																					OnsysConstantes.TIMEOUT
+																					);
 			*/
-			String response =  WebServiceUtil.carregaXMLWebServices(request,
-																	OnsysConstantes.USER_DESENV, 
-		 															OnsysConstantes.PASS_DESENV,
+			String response =  WebServiceUtil.carregaXMLWebServicesTimeout(request,
+																	OnsysConstantes.USER_PROD, 
+		 															OnsysConstantes.PASS_PROD,
 																	OnsysConstantes.WSDL_REGISTRA_COLETA_OBTER_TRACKING, 
-																	OnsysConstantes.WSDL_OBTER_TRACKING_ACTION);
+																	OnsysConstantes.WSDL_OBTER_TRACKING_ACTION,
+																	OnsysConstantes.TIMEOUT);
+																	
 			return JAXBUtil.preencherObterTrackingResponse(response);
 			
 		} catch (Exception e) {

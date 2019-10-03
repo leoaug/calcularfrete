@@ -20,7 +20,8 @@
 				<div class="ui-fluid">
 	       			 <p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
 	       			 	       	<p:outputLabel for="agData" value="Data da entrega Agendada" />
-        						<p:calendar id="agData" value="#{obterTrackingController.obterTrackingRequest.dataConsulta}" showTodayButton="true" pattern="yyyy-MM-dd" />
+        						<p:calendar id="agData" required="true" requiredMessage="Informe a Data"
+        									value="#{obterTrackingController.obterTrackingRequest.dataConsulta}" showTodayButton="true" pattern="yyyy-MM-dd" />
 	       			 </p:panelGrid>
 	       		</div>
 	       		<p:commandButton value=".:: Obter Tracking::." 
@@ -35,7 +36,30 @@
     	<h:form id="idFormResultadoTracking"> 
     		 
     		 <h:outputText value="Cod Proc: " style="font-weight: bolder;" />    		 
-    		 <h:outputText value="#{obterTrackingController.obterTrackingResponse.codigoProc}" />
+    		 
+    		 <h:outputText rendered="#{obterTrackingController.obterTrackingResponse.codigoProc eq 0}" 
+    		 	value="Cliente não autorizado a realizar o procedimento" />
+    		
+    		 <h:outputText rendered="#{obterTrackingController.obterTrackingResponse.codigoProc eq 1}" 
+    		 	value="Processado com sucesso Obs: Processamento realizado com sucesso." />
+			 
+			 <h:outputText rendered="#{obterTrackingController.obterTrackingResponse.codigoProc eq 2}" 
+    		 	value="Sistema indisponível no momento Obs: O cliente deverá realizar a transmissão novamente mais tarde." />
+  		
+			 <h:outputText rendered="#{obterTrackingController.obterTrackingResponse.codigoProc eq 3}" 
+    		 	value="Erro na validação XSD Obs: O cliente deverá verificar a estrutura do conteúdo enviado." />
+
+			 <h:outputText rendered="#{obterTrackingController.obterTrackingResponse.codigoProc eq 4}" 
+    		 	value=" Erro sistêmico por parte da TOTAL EXPRESS Obs: O cliente deverá realizar a transmissão novamente mais tarde." />
+
+			 <h:outputText rendered="#{obterTrackingController.obterTrackingResponse.codigoProc eq 5}" 
+    		 	value=" Erro timeout de requisição, tente novamente mais tarde" />
+
+
+    		 
+    		 
+    		 
+    		 
     		 <br/>
     		 
     		 <ui:repeat var="loteRetorno" value="#{obterTrackingController.obterTrackingResponse.listaLoteRetorno}">
@@ -50,11 +74,9 @@
 	    		 	</h:outputText>
 	    		 	
 	    		 	<br/>
-	    		 	
-	    		 	<h:outputText value="Encomenda Retorno " />
-	    		 	<br/>
-	    		 	<ui:repeat var="encomendaRetorno" value="#{loteRetorno.listaEncomendaRetorno}">
-	    		 	  <p:panel header="Encomenda Retorno">
+	    		 		    		 	
+	    		 	<ui:repeat var="encomendaRetorno" value="#{loteRetorno.listaEncomendaRetorno}" varStatus="status">
+	    		 	  <p:panel header="Encomenda Retorno (#{status.index})">
 	    		 		
 	    		 	    <h:outputText value="Awb: " style="font-weight: bolder;" />	    		 		
 	    		 		<h:outputText value="#{encomendaRetorno.awb}" />
@@ -88,7 +110,7 @@
 	    		 	    
 	    		 	    <p:dataTable var="statusTotal" value="#{encomendaRetorno.listaStatusTotal}"> 
 	    		 	    	<f:facet name="header">
-	    		 	    		  <h:outputText value="Status Total: " />   		 	    		
+	    		 	    		  <h:outputText value="Status Total " />   		 	    		
 	    		 	    	</f:facet> 
 	    		 	    	 
 	    		 	    	<p:column headerText="Código Status">
@@ -110,7 +132,7 @@
 	    		 	    
 	    		 	    <p:dataTable var="statusEct" value="#{encomendaRetorno.listaStatusEct}"> 
 	    		 	    	<f:facet name="header">
-	    		 	    		  <h:outputText value="Status Ect: " />
+	    		 	    		  <h:outputText value="Status Ect " />
 	    		 	    		
 	    		 	    	</f:facet>
 	    		 	    

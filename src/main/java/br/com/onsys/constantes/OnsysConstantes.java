@@ -14,4 +14,5 @@ public class OnsysConstantes {
 	public static final String WSDL_CALCULO_FRETE_ACTION = "calcularFrete";
 	public static final String WSDL_REGISTRA_COLETA_ACTION = "RegistraColeta";
 	public static final String WSDL_OBTER_TRACKING_ACTION = "ObterTracking";
+	public static final Integer TIMEOUT = 50000000; // 3000;
 }
