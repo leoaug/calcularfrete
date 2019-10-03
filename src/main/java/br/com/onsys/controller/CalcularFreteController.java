@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import org.apache.axis.management.Registrar;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 import br.com.onsys.bean.CalcularFreteBean;
 import br.com.onsys.service.CalcularFreteService;
@@ -18,7 +19,7 @@ import br.com.onsys.webservice.CalcularFreteResponse;
 
 
 @Named
-@ViewScoped
+@Scope("view")
 public class CalcularFreteController implements Serializable {
 	
 	

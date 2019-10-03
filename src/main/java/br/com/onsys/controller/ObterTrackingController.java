@@ -9,13 +9,14 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 import br.com.onsys.service.ObterTrackingService;
 import br.com.onsys.webservice.coletas.ObterTrackingRequest;
 import br.com.onsys.webservice.coletas.ObterTrackingResponse;
 
 @Named
-@ViewScoped
+@Scope("view")
 public class ObterTrackingController implements Serializable {
 
 
@@ -27,11 +28,12 @@ public class ObterTrackingController implements Serializable {
 	
 	@Autowired
 	private ObterTrackingService obterTrackingService;
+
 	
 	@PostConstruct
 	public void onInit() {
 		setObterTrackingRequest(new ObterTrackingRequest());
-
+		setObterTrackingResponse(new ObterTrackingResponse());
 	}
 	
 	public void obterTracking() {

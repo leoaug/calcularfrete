@@ -13,6 +13,7 @@ import javax.inject.Named;
 
 import org.apache.axis.types.NonNegativeInteger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 
 import br.com.onsys.service.RegistraColetaService;
 import br.com.onsys.webservice.coletas.Agendamento;
@@ -23,7 +24,7 @@ import br.com.onsys.webservice.coletas.RegistraColetaResponse;
 import br.com.onsys.webservice.coletas.NFe;
 
 @Named
-@ViewScoped
+@Scope("view")
 public class RegistrarColetaController implements Serializable {
 
 	

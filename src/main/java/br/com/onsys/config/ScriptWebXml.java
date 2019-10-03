@@ -1,10 +1,16 @@
 package br.com.onsys.config;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+
+import org.springframework.beans.factory.config.CustomScopeConfigurer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -32,6 +38,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import br.com.onsys.controller.OnsysViewScope;
 
 
 @Configuration
@@ -110,6 +118,14 @@ public class ScriptWebXml implements  WebApplicationInitializer,  WebMvcConfigur
         		 exposedHeaders("Location");
     }
 	
+    @Bean
+    public static CustomScopeConfigurer customScopeConfigurer(){
+        CustomScopeConfigurer configurer = new CustomScopeConfigurer();
+        Map<String, Object> scopes = new HashMap<String, Object>();
+        scopes.put("view", new OnsysViewScope());
+        configurer.setScopes(scopes);
+        return configurer;
+    }
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {		
